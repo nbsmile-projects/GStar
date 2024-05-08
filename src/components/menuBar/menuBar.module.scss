@@ -15,9 +15,9 @@
 
         ul {
             li {
-                font-size: 23px;
-                font-weight: bold;
-                color: #7c7e80;
+                font-size: 24px;
+                font-weight: 500;
+                color: #a9acae;
                 padding-bottom: 25px;
             }
         }
@@ -27,13 +27,23 @@
         display: grid;
         grid-template-columns: 50% 50%;
         margin-top: auto;
+
         p {
             font-size: 20px;
-            font-weight: bold;
-            color: #7c7e80;
+            font-weight: 500;
+            color: #a9acae;
             text-align: center;
-            border: 0.1px solid #7c7e80;
             padding: 15px 0;
+        }
+
+        .first {
+            border-top: 0.1px solid #a9acae;
+            border-right: 0.1px solid #a9acae;
+            ;
+        }
+
+        .second {
+            border-top: 0.1px solid #a9acae;
         }
 
     }

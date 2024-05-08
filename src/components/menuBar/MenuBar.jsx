@@ -19,8 +19,8 @@ const MenuBar = () => {
                 </ul>
             </div>
             <div className={styles.barFooter}>
-                <p>RU</p>
-                <p>Поделиться</p>
+                <p className={styles.first}>RU</p>
+                <p className={styles.second}>Поделиться</p>
             </div>
         </div>
     )
