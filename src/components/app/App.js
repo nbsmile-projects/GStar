@@ -9,8 +9,10 @@ function App() {
   return (
     <div className={styles.App}>
       <MenuBar />
-      {/* <MainHeader /> */}
-      <BicycleCatalog />
+      <div className="content">
+        {/* <MainHeader /> */}
+        <BicycleCatalog />
+      </div>
     </div>
   );
 }
