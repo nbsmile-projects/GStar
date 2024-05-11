@@ -6,7 +6,7 @@ const MenuBar = () => {
     return (
         <div className={styles.menuBar}>
             <div className={styles.logo}>
-                <a href="#"><img width={300} src={`${process.env.PUBLIC_URL}/lightLogo.png`} alt="logo" /></a>
+                <a href="#"><img width={300} src={`${process.env.PUBLIC_URL}/logos/Logo2light.svg`} alt="logo" /></a>
             </div>
             <div className={styles.menu}>
                 <ul>
