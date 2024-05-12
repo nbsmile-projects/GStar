@@ -10,6 +10,7 @@ const MenuBar = () => {
             </div>
             <div className={styles.menu}>
                 <ul>
+                    <li>Главная</li>
                     <li>Велосипеды</li>
                     <li>Велозапчасти</li>
                     <li>Велоаксессуары</li>

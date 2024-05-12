@@ -1,10 +1,10 @@
-.bicycles {
+.bicycleAccs {
     display: flex;
     flex-direction: column;
     justify-content: end;
     padding: 50px 0px;
 
-    .bicycleList {
+    .bicycleAccsList {
         display: grid;
         grid-template-columns: repeat(3, 300px);
         column-gap: 70px;

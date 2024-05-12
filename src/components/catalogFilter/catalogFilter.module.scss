@@ -1,0 +1,18 @@
+.catalogFilter {
+    display: flex;
+    justify-content: end;
+    margin: 0 50px 25px 50px;
+
+    .searchIcon {
+        margin-right: 5px;
+    }
+
+    .search {
+        margin-right: 20px;
+        padding: 0px 10px;
+    }
+
+    .filter {
+        padding: 0px 10px;
+    }
+}
