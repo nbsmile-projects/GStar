@@ -1,7 +1,10 @@
-
+import { Link, NavLink } from 'react-router-dom';
 
 import styles from './menuBar.module.scss';
+import { Router } from 'react-router-dom/dist/umd/react-router-dom.development';
 const MenuBar = () => {
+
+    const activeLink = ({ isActive }) => isActive ? { color: "#e7ebed", textDecoration: " underline #e7ebed" } : { color: "#a9acae" };
 
     return (
         <div className={styles.menuBar}>
@@ -10,12 +13,12 @@ const MenuBar = () => {
             </div>
             <div className={styles.menu}>
                 <ul>
-                    <li>Главная</li>
-                    <li>Велосипеды</li>
-                    <li>Велозапчасти</li>
-                    <li>Велоаксессуары</li>
+                    <li><NavLink style={activeLink} to="/">Главная</NavLink ></li>
+                    <li><NavLink style={activeLink} to="/bicycles">Велосипеды</NavLink></li>
+                    <li><NavLink style={activeLink} to="/bicycleParts">Велозапчасти</NavLink></li>
+                    <li><NavLink style={activeLink} to="/bicycleAccs">Велоаксессуары</NavLink></li>
                     <li>Отзывы</li>
-                    <li>О нас</li>
+                    <li>O нас</li>
                     <li>Сервис</li>
                 </ul>
             </div>

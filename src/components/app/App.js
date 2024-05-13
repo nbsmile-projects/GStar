@@ -1,3 +1,5 @@
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+
 import MenuBar from "../menuBar/MenuBar";
 import MainHeader from "../mainHeader/MainHeader";
 import BicycleCatalog from "../bicycleCatalog/BicycleCatalog";
@@ -10,14 +12,18 @@ import styles from './App.module.scss';
 function App() {
   return (
     <div className={styles.App}>
-      <MenuBar />
-      <div className="content">
-        {/* <MainHeader /> */}
-        {/* <BicycleCatalog /> */}
-        {/* <BicyclePartsCatalog /> */}
-        {/* <BicycleAccsCatalog /> */}
-      </div>
-    </div>
+      <Router>
+        <MenuBar />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<MainHeader />} />
+            <Route path="/bicycles" element={<BicycleCatalog />} />
+            <Route path="/bicycleParts" element={<BicyclePartsCatalog />} />
+            <Route path="/bicycleAccs" element={<BicycleAccsCatalog />} />
+          </Routes>
+        </div>
+      </Router>
+    </div >
   );
 }
 
