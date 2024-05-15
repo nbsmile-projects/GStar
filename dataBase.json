@@ -1,0 +1,85 @@
+{
+    "bicycles": [
+        {
+            "id": "0c530a9a-a5e2-4815-832d-167dfa418482",
+            "thumbnail": {
+                "public": "${process.env.PUBLIC_URL}",
+                "path": "/bicycle.png"
+            },
+            "name": "Велосипед Giant Talon 2 - 2022 (phantom green)",
+            "price": "79 995 сом"
+        },
+        {
+            "id": "3480380d-2b69-4b33-b47e-f362974d7b91",
+            "thumbnail": {
+                "public": "${process.env.PUBLIC_URL}",
+                "path": "/bicycle.png"
+            },
+            "name": "Велосипед Giant Talon 2 - 2022 (phantom green)",
+            "price": "79 995 сом"
+        },
+        {
+            "id": "8defb354-8a81-48a3-a58e-4c245ad9bd46",
+            "thumbnail": {
+                "public": "${process.env.PUBLIC_URL}",
+                "path": "/bicycle.png"
+            },
+            "name": "Велосипед Giant Talon 2 - 2022 (phantom green)",
+            "price": "79 995 сом"
+        },
+        {
+            "id": "2861df82-67d3-4c56-9f8f-cdee0c79d514",
+            "thumbnail": {
+                "public": "${process.env.PUBLIC_URL}",
+                "path": "/bicycle.png"
+            },
+            "name": "Велосипед Giant Talon 2 - 2022 (phantom green)",
+            "price": "79 995 сом"
+        },
+        {
+            "id": "41d4c81f-2b55-40b9-a4fd-659e6c6ae66f",
+            "thumbnail": {
+                "public": "${process.env.PUBLIC_URL}",
+                "path": "/bicycle.png"
+            },
+            "name": "Велосипед Giant Talon 2 - 2022 (phantom green)",
+            "price": "79 995 сом"
+        },
+        {
+            "id": "30477574-53b2-4a6e-90d2-78d301de9753",
+            "thumbnail": {
+                "public": "${process.env.PUBLIC_URL}",
+                "path": "/bicycle.png"
+            },
+            "name": "Велосипед Giant Talon 2 - 2022 (phantom green)",
+            "price": "79 995 сом"
+        },
+        {
+            "id": "ef44c8b3-394a-46a5-84c5-a33b0f044b33",
+            "thumbnail": {
+                "public": "${process.env.PUBLIC_URL}",
+                "path": "/bicycle.png"
+            },
+            "name": "Велосипед Giant Talon 2 - 2022 (phantom green)",
+            "price": "79 995 сом"
+        },
+        {
+            "id": "3e120d1d-6d85-46aa-b063-99716577c803",
+            "thumbnail": {
+                "public": "${process.env.PUBLIC_URL}",
+                "path": "/bicycle.png"
+            },
+            "name": "Велосипед Giant Talon 2 - 2022 (phantom green)",
+            "price": "79 995 сом"
+        },
+        {
+            "id": "7b7848f7-9496-4cc1-8bfa-150da1a1f49c",
+            "thumbnail": {
+                "public": "${process.env.PUBLIC_URL}",
+                "path": "/bicycle.png"
+            },
+            "name": "Велосипед Giant Talon 2 - 2022 (phantom green)",
+            "price": "79 995 сом"
+        }
+    ]
+}
