@@ -10,23 +10,19 @@
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: 0.5s;
+    transition: 0.2s;
 
     .modalContent {
         padding: 20px;
         border-radius: 8px;
         background-color: #fff;
-        transform: scale(0.5);
-        transition: all 0.5s;
-        width: 800px;
-        height: 500px;
-        background-color: aqua;
-        transition: all 3s ease-in-out;
+        width: 95vw;
+        transform: scale(0.95);
+        transition: 0.2s;
     }
 
     .modalContent.active {
         transform: scale(1);
-        background-color: bisque;
     }
 }
 

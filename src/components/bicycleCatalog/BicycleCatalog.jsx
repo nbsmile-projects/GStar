@@ -35,60 +35,6 @@ function BicycleCatalog({ active, setActive }) {
             <CatalogFilter />
             <div className={styles.bicycleList}>
                 {bicycleList}
-                {/* <li className={styles.item} >
-                    <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}/bicycle.png`} />
-                    <p className={styles.itemName}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                    <p className={styles.itemPrice}>79 995 сом</p>
-                    <button className={styles.itemButton}>Купить</button>
-                </li>
-                <li className={styles.item} >
-                    <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}/bicycle.png`} />
-                    <p className={styles.itemName}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                    <p className={styles.itemPrice}>79 995 сом</p>
-                    <button className={styles.itemButton}>Купить</button>
-                </li>
-                <li className={styles.item} >
-                    <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}/bicycle.png`} />
-                    <p className={styles.itemName}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                    <p className={styles.itemPrice}>79 995 сом</p>
-                    <button className={styles.itemButton}>Купить</button>
-                </li>
-                <li className={styles.item} >
-                    <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}/bicycle.png`} />
-                    <p className={styles.itemName}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                    <p className={styles.itemPrice}>79 995 сом</p>
-                    <button className={styles.itemButton}>Купить</button>
-                </li>
-                <li className={styles.item} >
-                    <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}/bicycle.png`} />
-                    <p className={styles.itemName}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                    <p className={styles.itemPrice}>79 995 сом</p>
-                    <button className={styles.itemButton}>Купить</button>
-                </li>
-                <li className={styles.item} >
-                    <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}/bicycle.png`} />
-                    <p className={styles.itemName}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                    <p className={styles.itemPrice}>79 995 сом</p>
-                    <button className={styles.itemButton}>Купить</button>
-                </li>
-                <li className={styles.item} >
-                    <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}/bicycle.png`} />
-                    <p className={styles.itemName}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                    <p className={styles.itemPrice}>79 995 сом</p>
-                    <button className={styles.itemButton}>Купить</button>
-                </li>
-                <li className={styles.item} >
-                    <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}/bicycle.png`} />
-                    <p className={styles.itemName}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                    <p className={styles.itemPrice}>79 995 сом</p>
-                    <button className={styles.itemButton}>Купить</button>
-                </li>
-                <li className={styles.item} >
-                    <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}/bicycle.png`} />
-                    <p className={styles.itemName}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                    <p className={styles.itemPrice}>79 995 сом</p>
-                    <button className={styles.itemButton}>Купить</button>
-                </li> */}
             </div>
         </ div >
     );
