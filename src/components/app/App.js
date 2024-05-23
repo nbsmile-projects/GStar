@@ -8,13 +8,14 @@ import BicyclePartsCatalog from "../bicyclePartsCatalog/BicyclePartsCatallog";
 import BicycleAccsCatalog from "../bicycleAccsCatalog/BicycleAccsCatalog";
 import ModalWindow from "../modalWindow/ModalWindow";
 import CharacteristicsTable from '../characteristicsTable/CharacteristicsTable';
+import BicycleDetails from "../bicycleDetails/BicycleDetails";
 
 import '../../baseStyles.scss';
 import styles from './App.module.scss';
 
 function App() {
-
-  const [modalActive, setModalActive] = useState(false);
+  const [isModalActive, setModalActive] = useState(false);
+  const [modalWinEl, setModalWinEl] = useState(null);
 
   return (
     <div className={styles.App}>
@@ -23,24 +24,20 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<MainHeader />} />
-            <Route path="/bicycles" element={<BicycleCatalog active={modalActive} setActive={setModalActive} />} />
+            <Route path="/bicycles" element={<BicycleCatalog active={isModalActive} setActive={setModalActive} />} />
             <Route path="/bicycleParts" element={<BicyclePartsCatalog />} />
             <Route path="/bicycleAccs" element={<BicycleAccsCatalog />} />
           </Routes>
         </div>
       </Router>
-      <ModalWindow active={modalActive} setActive={setModalActive}>
+      <ModalWindow active={isModalActive} setActive={setModalActive}>
         <div className={styles.bicycleModalWindow}>
           <img src={`${process.env.PUBLIC_URL}/bicycle.png`} />
           <div className={styles.info}>
-            {/*<p className={styles.name}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-            <p className={styles.brand}>Giant</p>
-             <p className={styles.price}>79 995 сом</p>
-            <p className={styles.description}>Построенный на легкой алюминиевой раме ALUXX с классической конструкцией хардтейла и сбалансированными ходовыми качествами колес большего диаметра 27,5 дюймов, Talon является отличным выбором для кросс-кантри и трейловой езды. Геометрия рамы специально разработана для адаптации к соответствующему размеру колес и амортизационной вилке 80 мм или 100 мм (в зависимости от размера рамы). Это вариант, идеально подходящий для амбициозных райдеров, которые хотят поднять свои внедорожные навыки на новый уровень.</p>
-            <button className={styles.buyButton}>Купить</button>
-            <button className={styles.charcsButton}>Характеристики →</button> */}
-            <CharacteristicsTable />
+            <BicycleDetails modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} />
+            <CharacteristicsTable modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} />
           </div>
+          <button className={styles.closeModalWinBtn} onClick={() => setModalActive(false)}>x</button>
         </div>
       </ModalWindow>
     </div >

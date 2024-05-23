@@ -1,7 +1,9 @@
 .App {
     .bicycleModalWindow {
         display: flex;
+        position: relative;
         justify-content: space-between;
+        align-items: center;
         padding: 10px;
 
         img {
@@ -13,52 +15,23 @@
 
         .info {
             width: 60%;
-            margin-top: 60px;
-            margin-left: 40px;
+            height: 550px;
+            display: flex;
+            position: relative;
+            align-items: center;
+            overflow: hidden;
+        }
 
-            .name {
-                font-size: 28px;
-                font-weight: 500;
-            }
-
-            .brand {
-                font-size: 20px;
-                font-weight: 300;
-                margin-top: 5px;
-            }
-
-            .price {
-                font-size: 23px;
-                font-weight: 400;
-                margin-top: 10px;
-            }
-
-            .description {
-                font-size: 18px;
-                font-weight: 350;
-                margin-top: 10px;
-            }
-
-            .buyButton {
-                margin-top: 20px;
-                font-size: 18px;
-                font-weight: 500;
-                padding: 6px 20px;
-                border: 2px solid rgb(0, 0, 0);
-                border-radius: 2px;
-                background-color: transparent;
-            }
-
-            .charcsButton {
-                margin-left: 10px;
-
-                font-size: 18px;
-                font-weight: 500;
-                padding: 6px 20px;
-                border: 2px solid rgb(0, 0, 0);
-                border-radius: 2px;
-                background-color: transparent;
-            }
+        .closeModalWinBtn {
+            position: absolute;
+            top: 0px;
+            right: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 30px;
+            background-color: transparent;
+            border: none;
         }
     }
+
 }
