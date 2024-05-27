@@ -19,7 +19,7 @@ const MenuBar = () => {
                     <li><NavLink style={activeLink} to="/bicycleAccs">Велоаксессуары</NavLink></li>
                     <li>Отзывы</li>
                     <li>O нас</li>
-                    <li>Сервис</li>
+                    <li><NavLink style={activeLink} to="/bicycleService">Сервис</NavLink></li>
                 </ul>
             </div>
             <div className={styles.barFooter}>

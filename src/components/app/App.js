@@ -9,6 +9,7 @@ import BicycleAccsCatalog from "../bicycleAccsCatalog/BicycleAccsCatalog";
 import ModalWindow from "../modalWindow/ModalWindow";
 import CharacteristicsTable from '../characteristicsTable/CharacteristicsTable';
 import BicycleDetails from "../bicycleDetails/BicycleDetails";
+import BicycleService from "../bicycleService/BicycleService";
 
 import '../../baseStyles.scss';
 import styles from './App.module.scss';
@@ -27,6 +28,7 @@ function App() {
             <Route path="/bicycles" element={<BicycleCatalog active={isModalActive} setActive={setModalActive} />} />
             <Route path="/bicycleParts" element={<BicyclePartsCatalog />} />
             <Route path="/bicycleAccs" element={<BicycleAccsCatalog />} />
+            <Route path="/bicycleService" element={<BicycleService />} />
           </Routes>
         </div>
       </Router>
@@ -40,7 +42,7 @@ function App() {
           <button className={styles.closeModalWinBtn} onClick={() => setModalActive(false)}>x</button>
         </div>
       </ModalWindow>
-    </div >
+    </div>
   );
 }
 
