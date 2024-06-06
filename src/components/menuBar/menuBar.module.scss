@@ -1,50 +1,86 @@
-.menuBar {
-    background-color: #1A1B1D;
-    height: 100vh;
-    display: flex;
+.menuBarWrapper {
     position: fixed;
-    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.5s;
+    z-index: 2;
 
-    .logo {
-        background-color: rgba(255, 255, 255, 0.05);
-    }
+    .menuBar {
+        background-color: #1A1B1D;
+        height: 100vh;
+        display: flex;
+        position: fixed;
+        flex-direction: column;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateX(-300px);
+        transition: 0.5s;
+        pointer-events: all;
 
-    .menu {
-        padding-left: 30px;
-        padding-top: 50px;
+        .closeBurgerIcon {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            width: 30px;
+            cursor: pointer;
+        }
 
-        ul {
-            li {
-                font-size: 24px;
-                font-weight: 500;
-                color: #a9acae;
-                padding-bottom: 25px;
+        .logo {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .menu {
+            padding-left: 30px;
+            padding-top: 50px;
+            // text-align: right;
+
+            ul {
+                li {
+                    font-size: 24px;
+                    font-weight: 500;
+                    color: #a9acae;
+                    padding-bottom: 25px;
+                }
             }
         }
+
+        .barFooter {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            margin-top: auto;
+
+            p {
+                font-size: 20px;
+                font-weight: 500;
+                color: #a9acae;
+                text-align: center;
+                padding: 15px 0;
+            }
+
+            .first {
+                border-top: 0.1px solid #a9acae;
+                border-right: 0.1px solid #a9acae;
+                ;
+            }
+
+            .second {
+                border-top: 0.1px solid #a9acae;
+            }
+
+        }
     }
 
-    .barFooter {
-        display: grid;
-        grid-template-columns: 50% 50%;
-        margin-top: auto;
-
-        p {
-            font-size: 20px;
-            font-weight: 500;
-            color: #a9acae;
-            text-align: center;
-            padding: 15px 0;
-        }
-
-        .first {
-            border-top: 0.1px solid #a9acae;
-            border-right: 0.1px solid #a9acae;
-            ;
-        }
-
-        .second {
-            border-top: 0.1px solid #a9acae;
-        }
-
+    .menuBarActive {
+        visibility: visible;
+        transform: translateX(0px);
+        opacity: 1;
     }
+}
+
+.menuBarWrapperActive {
+    opacity: 1;
+    pointer-events: all;
 }

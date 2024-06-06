@@ -17,11 +17,13 @@ import styles from './App.module.scss';
 function App() {
   const [isModalActive, setModalActive] = useState(false);
   const [modalWinEl, setModalWinEl] = useState(null);
+  const [isMenuBarActive, setIsMenuBarActive] = useState(false);
 
   return (
     <div className={styles.App}>
+      <img className={styles.burger} src={`${process.env.PUBLIC_URL}/burger/openBurger.svg`} onClick={() => setIsMenuBarActive(true)} alt="burgerIcon" />
       <Router>
-        <MenuBar />
+        <MenuBar isMenuBarActive={isMenuBarActive} setIsMenuBarActive={setIsMenuBarActive} />
         <div className="content">
           <Routes>
             <Route path="/" element={<MainHeader />} />

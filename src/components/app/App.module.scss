@@ -1,4 +1,14 @@
 .App {
+    position: relative;
+
+    .burger {
+        position: fixed;
+        width: 55px;
+        left: 10px;
+        top: 5px;
+        cursor: pointer;
+    }
+
     .bicycleModalWindow {
         display: flex;
         position: relative;
