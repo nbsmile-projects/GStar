@@ -11,21 +11,25 @@
         justify-content: center;
 
         .item {
-            .thumbnail {
-                width: 300px;
-                height: 300px;
-            }
+            .card {
+                cursor: pointer;
 
-            .itemName {
-                font-size: 20px;
-                font-weight: 500;
-                text-align: center;
-            }
+                .thumbnail {
+                    width: 300px;
+                    height: 300px;
+                }
 
-            .itemPrice {
-                margin-top: 8px;
-                font-size: 18px;
-                text-align: center;
+                .itemName {
+                    font-size: 20px;
+                    font-weight: 500;
+                    text-align: center;
+                }
+
+                .itemPrice {
+                    margin-top: 8px;
+                    font-size: 18px;
+                    text-align: center;
+                }
             }
 
             .itemButton {
@@ -33,6 +37,7 @@
                 margin: 0 auto;
                 margin-top: 20px;
 
+                width: 105px;
                 font-size: 18px;
                 font-weight: 500;
                 padding: 6px 20px;

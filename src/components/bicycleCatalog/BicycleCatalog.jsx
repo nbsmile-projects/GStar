@@ -4,7 +4,7 @@ import CatalogFilter from "../catalogFilter/catalogFilter";
 
 import styles from "./bicycleCatalog.module.scss";
 
-function BicycleCatalog({ active, setActive }) {
+function BicycleCatalog({ active, setActive, onItemSelected }) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -17,12 +17,18 @@ function BicycleCatalog({ active, setActive }) {
         return data.map(item => {
             return (
                 <li className={styles.item} key={item.id}>
-                    <div className={styles.card} onClick={() => setActive(true)}>
+                    <div className={styles.card} onClick={() => {
+                        onItemSelected({
+                            item: item,
+                            type: 'bicycle'
+                        });
+                        setActive(true);
+                    }}>
                         <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}${item.thumbnail.path}`} />
                         <p className={styles.itemName}>{item.name}</p>
                         <p className={styles.itemPrice}>{item.price}</p>
                     </div>
-                    <button className={styles.itemButton}>Купить</button>
+                    <a href="https://wa.me/+996702557299" className={styles.itemButton}>Купить</a>
                 </li>
             )
         })

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import styles from "./bicycleDetails.module.scss";
 
-const BicycleDetails = ({ modalWinEl, setModalWinEl }) => {
+const BicycleDetails = ({ modalWinEl, setModalWinEl, selectedItem }) => {
 
     useEffect(() => {
         setModalEl();
@@ -18,14 +18,17 @@ const BicycleDetails = ({ modalWinEl, setModalWinEl }) => {
 
     const isWinActive = modalWinEl === 'Win1' ? styles.active : "";
 
+    const { name, price, brand, description } = selectedItem.item;
+    const isItemBicycle = selectedItem.type === 'bicycle';
+
     return (
         <div className={`${styles.details} ${isWinActive}`}>
-            <p className={styles.name}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-            <p className={styles.brand}>Giant</p>
-            <p className={styles.price}>79 995 сом</p>
-            <p className={styles.description}>Построенный на легкой алюминиевой раме ALUXX c классической конструкцией хардтейла и сбалансированными ходовыми качествами колес большего диаметра 27,5 дюймов, Talon является отличным выбором для кросс-кантри и трейловой езды. Геометрия рамы специально разработана для адаптации к соответствующему размеру колес и амортизационной вилке 80 мм или 100 мм (в зависимости от размера рамы). Это вариант, идеально подходящий для амбициозных райдеров, которые хотят поднять свои внедорожные навыки на новый уровень.</p>
-            <button className={styles.buyButton}>Купить</button>
-            <button className={styles.charcsButton} onClick={unSetModalEl}>Характеристики →</button>
+            <p className={styles.name}>{name}</p>
+            <p className={styles.brand}>{brand}</p>
+            <p className={styles.price}>{price}</p>
+            <p className={styles.description}>{description}</p>
+            <a href="https://wa.me/+996702557299" className={styles.buyButton}>Купить</a>
+            {isItemBicycle ? <button className={styles.charcsButton} onClick={unSetModalEl}>Характеристики →</button> : null}
         </div>
     )
 }

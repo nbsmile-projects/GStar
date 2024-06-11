@@ -15,9 +15,25 @@ import '../../baseStyles.scss';
 import styles from './App.module.scss';
 
 function App() {
+  const [isMenuBarActive, setIsMenuBarActive] = useState(false);
   const [isModalActive, setModalActive] = useState(false);
   const [modalWinEl, setModalWinEl] = useState(null);
-  const [isMenuBarActive, setIsMenuBarActive] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({ item: {}, type: '' });
+
+  const selectedItemInfo = () => {
+    const { thumbnail = '' } = selectedItem.item;
+
+    return (
+      <div div className={styles.bicycleModalWindow} >
+        <img src={`${process.env.PUBLIC_URL}${thumbnail.path}`} />
+        <div className={styles.info}>
+          <BicycleDetails modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} selectedItem={selectedItem} />
+          <CharacteristicsTable modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} />
+        </div>
+        <button className={styles.closeModalWinBtn} onClick={() => setModalActive(false)}>x</button>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.App}>
@@ -27,22 +43,15 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<MainHeader />} />
-            <Route path="/bicycles" element={<BicycleCatalog active={isModalActive} setActive={setModalActive} />} />
-            <Route path="/bicycleParts" element={<BicyclePartsCatalog />} />
-            <Route path="/bicycleAccs" element={<BicycleAccsCatalog />} />
+            <Route path="/bicycles" element={<BicycleCatalog active={isModalActive} setActive={setModalActive} onItemSelected={setSelectedItem} />} />
+            <Route path="/bicycleParts" element={<BicyclePartsCatalog active={isModalActive} setActive={setModalActive} onItemSelected={setSelectedItem} />} />
+            <Route path="/bicycleAccs" element={<BicycleAccsCatalog active={isModalActive} setActive={setModalActive} onItemSelected={setSelectedItem} />} />
             <Route path="/bicycleService" element={<BicycleService />} />
           </Routes>
         </div>
       </Router>
       <ModalWindow active={isModalActive} setActive={setModalActive}>
-        <div className={styles.bicycleModalWindow}>
-          <img src={`${process.env.PUBLIC_URL}/bicycle.png`} />
-          <div className={styles.info}>
-            <BicycleDetails modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} />
-            <CharacteristicsTable modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} />
-          </div>
-          <button className={styles.closeModalWinBtn} onClick={() => setModalActive(false)}>x</button>
-        </div>
+        {selectedItem !== null ? selectedItemInfo() : null}
       </ModalWindow>
     </div>
   );
