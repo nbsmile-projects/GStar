@@ -5,13 +5,24 @@ import CatalogFilter from "../catalogFilter/catalogFilter";
 import styles from "./bicycleCatalog.module.scss";
 
 function BicycleCatalog({ active, setActive, onItemSelected }) {
-    const [data, setData] = useState([]);
+    const [initialData, setInitialData] = useState([]);
+    const [listOfBicycles, setListOfBicycles] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         fetch('http://localhost:3001/bicycles')
             .then(response => response.json())
-            .then(data => setData(data))
+            .then(data => setInitialData(data))
     }, []);
+
+    useEffect(() => {
+        const Debounce = setTimeout(() => {
+            const searchedData = searchItem(initialData, searchTerm);
+            setListOfBicycles(searchedData);
+        }, 300);
+
+        return () => clearTimeout(Debounce);
+    }, [searchTerm]);
 
     const renderBicycles = data => {
         return data.map(item => {
@@ -34,11 +45,20 @@ function BicycleCatalog({ active, setActive, onItemSelected }) {
         })
     }
 
-    const bicycleList = renderBicycles(data);
+    const searchItem = (listOfItems, searchText) => {
+        if (!searchText) {
+            return listOfItems;
+        }
+        return listOfItems.filter(item => {
+            return item.name.toLowerCase().includes(searchText.toLowerCase());
+        })
+    }
+
+    const bicycleList = listOfBicycles.length == 0 ? renderBicycles(initialData) : renderBicycles(listOfBicycles);
 
     return (
         <div className={styles.bicycles}>
-            <CatalogFilter />
+            <CatalogFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
             <div className={styles.bicycleList}>
                 {bicycleList}
             </div>
