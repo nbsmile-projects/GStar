@@ -16,7 +16,6 @@ function BicyclePartsCatalog({ active, setActive, onItemSelected }) {
     const renderBicyclesParts = data => {
         return data.map(item => {
             const { thumbnail, name, price } = item;
-            console.log(item);
             return (
                 <li li className={styles.item} >
                     <div
