@@ -1,0 +1,25 @@
+.spinnerWindow {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1c4;
+
+    .wrapper {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 300px;
+        height: 120px;
+        border-radius: 20px;
+
+        .spinner {
+            transform: scale(0.8);
+        }
+    }
+}

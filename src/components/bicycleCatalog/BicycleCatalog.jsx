@@ -4,16 +4,36 @@ import CatalogFilter from "../catalogFilter/catalogFilter";
 
 import styles from "./bicycleCatalog.module.scss";
 
-function BicycleCatalog({ active, setActive, onItemSelected }) {
+function BicycleCatalog({ setActive, onItemSelected, loading, setLoading }) {
     const [listOfBicycles, setListOfBicycles] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filter, setFilter] = useState('');
+    const [filter, setFilter] = useState('morePopular');
+    const [content, setContent] = useState(listOfBicycles);
 
     useEffect(() => {
         fetch('http://localhost:3001/bicycles')
             .then(response => response.json())
-            .then(data => setListOfBicycles(data));
+            .then(data => {
+                setLoading(true);
+                setListOfBicycles(data);
+            });
+        // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        const Debounce = setTimeout(() => {
+            const bicycleList = renderBicycles(filterItems(searchItem(listOfBicycles, searchTerm), filter));
+            onItemsLoaded(bicycleList);
+        }, 300);
+
+        return () => clearTimeout(Debounce);
+        // eslint-disable-next-line
+    }, [loading]);
+
+    const onItemsLoaded = (items) => {
+        setLoading(false);
+        setContent(items);
+    }
 
     const renderBicycles = data => {
 
@@ -29,7 +49,7 @@ function BicycleCatalog({ active, setActive, onItemSelected }) {
                         });
                         setActive(true);
                     }}>
-                        <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}${item.thumbnail.path}`} />
+                        <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}${item.thumbnail.path}`} alt="bicycleThumbnail" />
                         <p className={styles.itemName}>{item.name}</p>
                         <p className={styles.itemPrice}>{price} сом</p>
                     </div>
@@ -40,6 +60,7 @@ function BicycleCatalog({ active, setActive, onItemSelected }) {
     }
 
     const searchItem = (listOfItems, searchText) => {
+        setLoading(true);
         if (!searchText) {
             return listOfItems;
         }
@@ -49,6 +70,7 @@ function BicycleCatalog({ active, setActive, onItemSelected }) {
     }
 
     const filterItems = (items, type) => {
+        setLoading(true);
         switch (type) {
             case "morePopular":
                 return items.sort((a, b) => b.sold - a.sold);
@@ -74,14 +96,15 @@ function BicycleCatalog({ active, setActive, onItemSelected }) {
         }
     }
 
-    const bicycleList = renderBicycles(filterItems(searchItem(listOfBicycles, searchTerm), filter));
-
-
     return (
         <div className={styles.bicycles}>
-            <CatalogFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} setFilter={setFilter} />
+            <CatalogFilter
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                setFilter={setFilter}
+                setLoading={setLoading} />
             <div className={styles.bicycleList}>
-                {bicycleList}
+                {content}
             </div>
         </ div >
     );

@@ -1,7 +1,7 @@
 
 import styles from "./catalogFilter.module.scss";
 
-const CatalogFilter = ({ searchTerm, setSearchTerm, setFilter }) => {
+const CatalogFilter = ({ searchTerm, setSearchTerm, setFilter, setLoading }) => {
     return (
         <div className={styles.catalogFilter}>
             <svg className={styles.searchIcon} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
@@ -11,9 +11,15 @@ const CatalogFilter = ({ searchTerm, setSearchTerm, setFilter }) => {
                 className={styles.search}
                 type="text"
                 placeholder="Поиск"
-                onChange={e => setSearchTerm(e.target.value)}
+                onChange={e => {
+                    setSearchTerm(e.target.value);
+                    setLoading(true);
+                }}
                 value={searchTerm} />
-            <select className={styles.filter} name="select" onChange={(e) => setFilter(e.target.value)}>
+            <select className={styles.filter} name="select" onChange={(e) => {
+                setLoading(true);
+                setFilter(e.target.value)
+            }}>
                 <option value="morePopular">Сначала популярные</option>
                 <option value="newer">Сначала новые</option>
                 <option value="highToLow">Цена: от высокой к низкой</option>

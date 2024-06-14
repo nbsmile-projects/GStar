@@ -19,12 +19,13 @@ function App() {
   const [isModalActive, setModalActive] = useState(false);
   const [modalWinEl, setModalWinEl] = useState(null);
   const [selectedItem, setSelectedItem] = useState({ item: {}, type: '' });
+  const [loading, setLoading] = useState(false);
 
   const selectedItemInfo = () => {
     const { thumbnail = '' } = selectedItem.item;
 
     return (
-      <div div className={styles.bicycleModalWindow} >
+      <div className={styles.bicycleModalWindow} >
         <img src={`${process.env.PUBLIC_URL}${thumbnail.path}`} />
         <div className={styles.info}>
           <BicycleDetails modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} selectedItem={selectedItem} />
@@ -40,12 +41,12 @@ function App() {
       <img className={styles.burger} src={`${process.env.PUBLIC_URL}/burger/openBurger.svg`} onClick={() => setIsMenuBarActive(true)} alt="burgerIcon" />
       <Router>
         <MenuBar isMenuBarActive={isMenuBarActive} setIsMenuBarActive={setIsMenuBarActive} />
-        <div className="content">
+        <div className={styles.content}>
           <Routes>
             <Route path="/" element={<MainHeader />} />
-            <Route path="/bicycles" element={<BicycleCatalog active={isModalActive} setActive={setModalActive} onItemSelected={setSelectedItem} />} />
-            <Route path="/bicycleParts" element={<BicyclePartsCatalog active={isModalActive} setActive={setModalActive} onItemSelected={setSelectedItem} />} />
-            <Route path="/bicycleAccs" element={<BicycleAccsCatalog active={isModalActive} setActive={setModalActive} onItemSelected={setSelectedItem} />} />
+            <Route path="/bicycles" element={<BicycleCatalog setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycleParts" element={<BicyclePartsCatalog setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycleAccs" element={<BicycleAccsCatalog setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
             <Route path="/bicycleService" element={<BicycleService />} />
           </Routes>
         </div>

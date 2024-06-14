@@ -1,23 +1,46 @@
 import { useEffect, useState } from "react";
+
 import CatalogFilter from "../catalogFilter/catalogFilter";
 
 import styles from "./bicyclePartsCatalog.module.scss";
 
-function BicyclePartsCatalog({ active, setActive, onItemSelected }) {
-    const [data, setData] = useState([]);
+function BicyclePartsCatalog({ setActive, onItemSelected, loading, setLoading }) {
+    const [listOfBicycleParts, setListOfBicycleParts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filter, setFilter] = useState('morePopular');
+    const [content, setContent] = useState(listOfBicycleParts);
 
     useEffect(() => {
         fetch('http://localhost:3001/bicycleParts')
             .then(response => response.json())
-            .then(data => setData(data))
+            .then(data => {
+                setLoading(true);
+                setListOfBicycleParts(data);
+            })
+        // eslint-disable-next-line
     }, [])
 
+    useEffect(() => {
+        const Debounce = setTimeout(() => {
+            const bicyclePartsList = renderBicycleParts(filterItems(searchItem(listOfBicycleParts, searchTerm), filter));
+            onItemsLoaded(bicyclePartsList);
+        }, 300);
 
-    const renderBicyclesParts = data => {
+        return () => clearTimeout(Debounce);
+        // eslint-disable-next-line
+    }, [loading]);
+
+    const onItemsLoaded = (items) => {
+        setLoading(false);
+        setContent(items);
+    }
+
+    const renderBicycleParts = data => {
         return data.map(item => {
-            const { thumbnail, name, price } = item;
+            const { thumbnail, name, price, id } = item;
+
             return (
-                <li li className={styles.item} >
+                <li className={styles.item} key={id}>
                     <div
                         className={styles.card}
                         onClick={() => {
@@ -27,9 +50,9 @@ function BicyclePartsCatalog({ active, setActive, onItemSelected }) {
                             });
                             setActive(true);
                         }}>
-                        <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}${thumbnail.path}`} />
+                        <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}${thumbnail.path}`} alt="bicyclePartThumbnail" />
                         <p className={styles.itemName}>{name}</p>
-                        <p className={styles.itemPrice}>{price}</p>
+                        <p className={styles.itemPrice}>{price} сом</p>
                     </div>
                     <a href="https://wa.me/+996702557299" className={styles.itemButton}>Купить</a>
                 </li >
@@ -37,13 +60,52 @@ function BicyclePartsCatalog({ active, setActive, onItemSelected }) {
         })
     }
 
-    const bicyclePartsList = renderBicyclesParts(data);
+    const searchItem = (listOfItems, searchText) => {
+        setLoading(true);
+        if (!searchText) {
+            return listOfItems;
+        }
+        return listOfItems.filter(item => {
+            return item.name.toLowerCase().includes(searchText.toLowerCase());
+        })
+    }
+
+    const filterItems = (items, type) => {
+        setLoading(true);
+        switch (type) {
+            case "morePopular":
+                return items.sort((a, b) => b.sold - a.sold);
+            case "newer":
+                return items.sort((a, b) => {
+                    const firstPastDate = new Date(a.uploadDate);
+                    const secondPastDate = new Date(b.uploadDate);
+
+                    let currentDate = new Date();
+                    currentDate.setHours(currentDate.getHours() + 6);
+
+                    let timeDifferenceOfFirst = currentDate - firstPastDate;
+                    let timeDifferenceOfSecond = currentDate - secondPastDate;
+
+                    return timeDifferenceOfFirst - timeDifferenceOfSecond;
+                });
+            case "highToLow":
+                return items.sort((a, b) => b.price - a.price);
+            case "lowToHigh":
+                return items.sort((a, b) => a.price - b.price);
+            default:
+                return items;
+        }
+    }
 
     return (
         <div className={styles.bicycleParts}>
-            <CatalogFilter />
+            <CatalogFilter
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                setFilter={setFilter}
+                setLoading={setLoading} />
             <div className={styles.bicyclePartsList}>
-                {bicyclePartsList}
+                {content}
             </div>
         </ div >
     );
