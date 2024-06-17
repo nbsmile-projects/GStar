@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import { MainPage, BicyclesPage, BicyclePartsPage, BicycleAccsPage, BicycleServicePage } from "../pages";
 
 import MenuBar from "../menuBar/MenuBar";
-import MainHeader from "../mainHeader/MainHeader";
-import BicycleCatalog from "../bicycleCatalog/BicycleCatalog";
-import BicyclePartsCatalog from "../bicyclePartsCatalog/BicyclePartsCatallog";
-import BicycleAccsCatalog from "../bicycleAccsCatalog/BicycleAccsCatalog";
 import ModalWindow from "../modalWindow/ModalWindow";
-import CharacteristicsTable from '../characteristicsTable/CharacteristicsTable';
-import BicycleDetails from "../bicycleDetails/BicycleDetails";
-import BicycleService from "../bicycleService/BicycleService";
+import CharacsPart from '../modalWindow/characsPart/CharacsPart';
+import DetailsPart from "../modalWindow/detailsPart/DetailsPart";
 
 import '../../baseStyles.scss';
 import styles from './App.module.scss';
@@ -28,8 +25,8 @@ function App() {
       <div className={styles.bicycleModalWindow} >
         <img src={`${process.env.PUBLIC_URL}${thumbnail.path}`} />
         <div className={styles.info}>
-          <BicycleDetails modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} selectedItem={selectedItem} />
-          <CharacteristicsTable modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} />
+          <DetailsPart modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} selectedItem={selectedItem} />
+          <CharacsPart modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} />
         </div>
         <button className={styles.closeModalWinBtn} onClick={() => setModalActive(false)}>x</button>
       </div>
@@ -43,11 +40,11 @@ function App() {
         <MenuBar isMenuBarActive={isMenuBarActive} setIsMenuBarActive={setIsMenuBarActive} />
         <div className={styles.content}>
           <Routes>
-            <Route path="/" element={<MainHeader />} />
-            <Route path="/bicycles" element={<BicycleCatalog setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
-            <Route path="/bicycleParts" element={<BicyclePartsCatalog setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
-            <Route path="/bicycleAccs" element={<BicycleAccsCatalog setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
-            <Route path="/bicycleService" element={<BicycleService />} />
+            <Route path="/" element={<MainPage />} />
+            <Route path="/bicycles" element={<BicyclesPage setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycleParts" element={<BicyclePartsPage setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycleAccs" element={<BicycleAccsPage setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycleService" element={<BicycleServicePage />} />
           </Routes>
         </div>
       </Router>

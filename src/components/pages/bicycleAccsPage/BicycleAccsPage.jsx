@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-import CatalogFilter from "../catalogFilter/catalogFilter";
+import CatalogFilter from "../../catalogFilter/catalogFilter";
 
-import styles from "./bicycleAccsCatalog.module.scss";
+import styles from "./bicycleAccsPage.module.scss";
 
-const BicycleAccsCatalog = ({ setActive, onItemSelected, loading, setLoading }) => {
+const BicycleAccsPage = ({ setActive, onItemSelected, loading, setLoading }) => {
     const [listOfBicycleAccs, setListOfBicycleAccs] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filter, setFilter] = useState('morePopular');
@@ -110,4 +110,4 @@ const BicycleAccsCatalog = ({ setActive, onItemSelected, loading, setLoading }) 
     );
 }
 
-export default BicycleAccsCatalog;
+export default BicycleAccsPage;

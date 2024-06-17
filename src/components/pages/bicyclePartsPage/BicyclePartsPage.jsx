@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 
-import CatalogFilter from "../catalogFilter/catalogFilter";
+import CatalogFilter from "../../catalogFilter/catalogFilter";
 
-import styles from "./bicycleCatalog.module.scss";
+import styles from "./bicyclePartsPage.module.scss";
 
-function BicycleCatalog({ setActive, onItemSelected, loading, setLoading }) {
-    const [listOfBicycles, setListOfBicycles] = useState([]);
+const BicyclePartsPage = ({ setActive, onItemSelected, loading, setLoading }) => {
+    const [listOfBicycleParts, setListOfBicycleParts] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filter, setFilter] = useState('morePopular');
-    const [content, setContent] = useState(listOfBicycles);
+    const [content, setContent] = useState(listOfBicycleParts);
 
     useEffect(() => {
-        fetch('http://localhost:3001/bicycles')
+        fetch('http://localhost:3001/bicycleParts')
             .then(response => response.json())
             .then(data => {
                 setLoading(true);
-                setListOfBicycles(data);
-            });
+                setListOfBicycleParts(data);
+            })
         // eslint-disable-next-line
-    }, []);
+    }, [])
 
     useEffect(() => {
         const Debounce = setTimeout(() => {
-            const bicycleList = renderBicycles(filterItems(searchItem(listOfBicycles, searchTerm), filter));
-            onItemsLoaded(bicycleList);
+            const bicyclePartsList = renderBicycleParts(filterItems(searchItem(listOfBicycleParts, searchTerm), filter));
+            onItemsLoaded(bicyclePartsList);
         }, 300);
 
         return () => clearTimeout(Debounce);
@@ -35,26 +35,27 @@ function BicycleCatalog({ setActive, onItemSelected, loading, setLoading }) {
         setContent(items);
     }
 
-    const renderBicycles = data => {
-
+    const renderBicycleParts = data => {
         return data.map(item => {
-            const price = item.price.toString().replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ');
+            const { thumbnail, name, price, id } = item;
 
             return (
-                <li className={styles.item} key={item.id}>
-                    <div className={styles.card} onClick={() => {
-                        onItemSelected({
-                            item: item,
-                            type: 'bicycle'
-                        });
-                        setActive(true);
-                    }}>
-                        <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}${item.thumbnail.path}`} alt="bicycleThumbnail" />
-                        <p className={styles.itemName}>{item.name}</p>
+                <li className={styles.item} key={id}>
+                    <div
+                        className={styles.card}
+                        onClick={() => {
+                            onItemSelected({
+                                item: item,
+                                type: 'bicyclePart'
+                            });
+                            setActive(true);
+                        }}>
+                        <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}${thumbnail.path}`} alt="bicyclePartThumbnail" />
+                        <p className={styles.itemName}>{name}</p>
                         <p className={styles.itemPrice}>{price} сом</p>
                     </div>
                     <a href="https://wa.me/+996702557299" className={styles.itemButton}>Купить</a>
-                </li>
+                </li >
             )
         })
     }
@@ -97,17 +98,17 @@ function BicycleCatalog({ setActive, onItemSelected, loading, setLoading }) {
     }
 
     return (
-        <div className={styles.bicycles}>
+        <div className={styles.bicycleParts}>
             <CatalogFilter
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
                 setFilter={setFilter}
                 setLoading={setLoading} />
-            <div className={styles.bicycleList}>
+            <div className={styles.bicyclePartsList}>
                 {content}
             </div>
         </ div >
     );
 }
 
-export default BicycleCatalog;
+export default BicyclePartsPage;

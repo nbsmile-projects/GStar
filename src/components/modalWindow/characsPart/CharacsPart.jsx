@@ -1,6 +1,8 @@
-import styles from './characteristicsTable.module.scss';
 
-const CharacteristicsTable = ({ modalWinEl, setModalWinEl }) => {
+
+import styles from "./characsPart.module.scss";
+
+const CharacsPart = ({ modalWinEl, setModalWinEl }) => {
 
     const isWinActive = modalWinEl === 'Win2' ? styles.active : "";
 
@@ -97,4 +99,4 @@ const CharacteristicsTable = ({ modalWinEl, setModalWinEl }) => {
     );
 }
 
-export default CharacteristicsTable;
+export default CharacsPart;

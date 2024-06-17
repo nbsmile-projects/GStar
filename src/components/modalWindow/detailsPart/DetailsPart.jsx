@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-import styles from "./bicycleDetails.module.scss";
+import styles from "./detailsPart.module.scss";
 
-const BicycleDetails = ({ modalWinEl, setModalWinEl, selectedItem }) => {
+const DetailsPart = ({ modalWinEl, setModalWinEl, selectedItem }) => {
 
     useEffect(() => {
         setModalEl();
@@ -33,4 +33,4 @@ const BicycleDetails = ({ modalWinEl, setModalWinEl, selectedItem }) => {
     )
 }
 
-export default BicycleDetails;
+export default DetailsPart;

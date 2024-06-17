@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import styles from './mainHeader.module.scss';
+import styles from './mainPage.module.scss';
 
-function MainHeader() {
+function MainPage() {
     return (
         <div className={styles.mainHeader}>
             <div className={styles.content}>
@@ -17,4 +17,4 @@ function MainHeader() {
     );
 }
 
-export default MainHeader;
+export default MainPage;
