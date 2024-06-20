@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { MainPage, BicyclesPage, BicyclePartsPage, BicycleAccsPage, BicycleServicePage } from "../pages";
+import { MainPage, CatalogPage, ServicePage } from "../pages";
 
 import MenuBar from "../menuBar/MenuBar";
 import ModalWindow from "../modalWindow/ModalWindow";
-import CharacsPart from '../modalWindow/characsPart/CharacsPart';
 import DetailsPart from "../modalWindow/detailsPart/DetailsPart";
+import CharacsPart from '../modalWindow/characsPart/CharacsPart';
 
 import '../../baseStyles.scss';
-import styles from './App.module.scss';
+import styles from './app.module.scss';
 
 function App() {
   const [isMenuBarActive, setIsMenuBarActive] = useState(false);
@@ -22,8 +22,8 @@ function App() {
     const { thumbnail = '' } = selectedItem.item;
 
     return (
-      <div className={styles.bicycleModalWindow} >
-        <img src={`${process.env.PUBLIC_URL}${thumbnail.path}`} />
+      <div className={styles.itemModalWindow} >
+        <img src={`${process.env.PUBLIC_URL}${thumbnail.path}`} alt={"modalWinThumbnail"} />
         <div className={styles.info}>
           <DetailsPart modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} selectedItem={selectedItem} />
           <CharacsPart modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} />
@@ -41,10 +41,10 @@ function App() {
         <div className={styles.content}>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/bicycles" element={<BicyclesPage setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
-            <Route path="/bicycleParts" element={<BicyclePartsPage setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
-            <Route path="/bicycleAccs" element={<BicycleAccsPage setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
-            <Route path="/bicycleService" element={<BicycleServicePage />} />
+            <Route path="/bicycles" element={<CatalogPage type="bicycles" setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycle-parts" element={<CatalogPage type="bicycleParts" setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycle-accs" element={<CatalogPage type="bicycleAccs" setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycle-service" element={<ServicePage />} />
           </Routes>
         </div>
       </Router>

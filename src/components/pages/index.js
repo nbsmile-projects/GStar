@@ -1,7 +1,5 @@
 import MainPage from "./mainPage/MainPage";
-import BicyclesPage from "./bicyclesPage/BicyclesPage";
-import BicyclePartsPage from "./bicyclePartsPage/BicyclePartsPage";
-import BicycleAccsPage from "./bicycleAccsPage/BicycleAccsPage";
-import BicycleServicePage from "./bicycleServicePage/BicycleServicePage";
+import CatalogPage from "./catalogPage/CatalogPage";
+import ServicePage from "./servicePage/ServicePage";
 
-export { MainPage, BicyclesPage, BicyclePartsPage, BicycleAccsPage, BicycleServicePage };
+export { MainPage, CatalogPage, ServicePage };

@@ -6,7 +6,21 @@ const MenuBar = ({ isMenuBarActive, setIsMenuBarActive }) => {
 
     const isMenuBarActiveClass = isMenuBarActive ? `${styles.menuBarActive}` : ' ';
     const isMenuBarWrapperActiveClass = isMenuBarActive ? `${styles.menuBarWrapperActive}` : ' ';
-    const activeLink = ({ isActive }) => isActive ? { color: "#e7ebed", textDecoration: " underline #e7ebed" } : { color: "#a9acae" };
+    const activeLink = ({ isActive }) => {
+        if (isActive) {
+            return {
+                color: "#ffffff",
+                fontSize: "29px",
+                transform: "translateX(10px)"
+            }
+        } else {
+            return {
+                color: "#a9acae",
+                fontSize: "26px",
+                transition: "0.3s"
+            }
+        }
+    };
 
     return (
         <div className={`${styles.menuBarWrapper} ${isMenuBarWrapperActiveClass}`} onClick={() => setIsMenuBarActive(false)} >
@@ -19,11 +33,11 @@ const MenuBar = ({ isMenuBarActive, setIsMenuBarActive }) => {
                     <ul>
                         <li><NavLink style={activeLink} to="/">Главная</NavLink ></li>
                         <li><NavLink style={activeLink} to="/bicycles">Велосипеды</NavLink></li>
-                        <li><NavLink style={activeLink} to="/bicycleParts">Велозапчасти</NavLink></li>
-                        <li><NavLink style={activeLink} to="/bicycleAccs">Велоаксессуары</NavLink></li>
+                        <li><NavLink style={activeLink} to="/bicycle-parts">Велозапчасти</NavLink></li>
+                        <li><NavLink style={activeLink} to="/bicycle-accs">Велоаксессуары</NavLink></li>
                         <li>Отзывы</li>
                         <li>O нас</li>
-                        <li><NavLink style={activeLink} to="/bicycleService">Сервис</NavLink></li>
+                        <li><NavLink style={activeLink} to="/bicycle-service">Сервис</NavLink></li>
                     </ul>
                 </div>
                 <div className={styles.barFooter}>

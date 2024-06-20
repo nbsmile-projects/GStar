@@ -19,7 +19,7 @@ const DetailsPart = ({ modalWinEl, setModalWinEl, selectedItem }) => {
     const isWinActive = modalWinEl === 'Win1' ? styles.active : "";
 
     const { name, price, brand, description } = selectedItem.item;
-    const isItemBicycle = selectedItem.type === 'bicycle';
+    const isItemBicycle = selectedItem.type === 'bicycles';
 
     return (
         <div className={`${styles.details} ${isWinActive}`}>

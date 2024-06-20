@@ -1,9 +1,9 @@
-.bicycleParts {
+.catalog {
     display: flex;
     flex-direction: column;
     padding: 50px 0px;
 
-    .bicyclePartsList {
+    .catalogList {
         display: grid;
         grid-template-columns: repeat(3, 300px);
         column-gap: 70px;
