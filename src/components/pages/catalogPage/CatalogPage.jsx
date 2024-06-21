@@ -30,6 +30,7 @@ function CatalogPage({ type, setActive, onItemSelected, loading, setLoading }) {
     }, [loading]);
 
     const onRequest = (category) => {
+        setContent([]);
         getAllItems(category)
             .then(data => {
                 setListOfItems(data);

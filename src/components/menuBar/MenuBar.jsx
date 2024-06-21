@@ -6,7 +6,7 @@ const MenuBar = ({ isMenuBarActive, setIsMenuBarActive }) => {
 
     const isMenuBarActiveClass = isMenuBarActive ? `${styles.menuBarActive}` : ' ';
     const isMenuBarWrapperActiveClass = isMenuBarActive ? `${styles.menuBarWrapperActive}` : ' ';
-    const activeLink = ({ isActive }) => {
+    const isActiveLink = ({ isActive }) => {
         if (isActive) {
             return {
                 color: "#ffffff",
@@ -31,13 +31,13 @@ const MenuBar = ({ isMenuBarActive, setIsMenuBarActive }) => {
                 </div>
                 <div className={styles.menu}>
                     <ul>
-                        <li><NavLink style={activeLink} to="/">Главная</NavLink ></li>
-                        <li><NavLink style={activeLink} to="/bicycles">Велосипеды</NavLink></li>
-                        <li><NavLink style={activeLink} to="/bicycle-parts">Велозапчасти</NavLink></li>
-                        <li><NavLink style={activeLink} to="/bicycle-accs">Велоаксессуары</NavLink></li>
+                        <li><NavLink style={isActiveLink} to="/">Главная</NavLink ></li>
+                        <li><NavLink style={isActiveLink} to="/bicycles">Велосипеды</NavLink></li>
+                        <li><NavLink style={isActiveLink} to="/bicycle-parts">Велозапчасти</NavLink></li>
+                        <li><NavLink style={isActiveLink} to="/bicycle-accs">Велоаксессуары</NavLink></li>
                         <li>Отзывы</li>
                         <li>O нас</li>
-                        <li><NavLink style={activeLink} to="/bicycle-service">Сервис</NavLink></li>
+                        <li><NavLink style={isActiveLink} to="/bicycle-service">Сервис</NavLink></li>
                     </ul>
                 </div>
                 <div className={styles.barFooter}>
