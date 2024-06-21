@@ -3,14 +3,14 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase, get, child, ref } from 'firebase/database';
 
 const firebaseApp = initializeApp({
-    apiKey: "AIzaSyBniXte3wIzX83v1FeNrMzhRui85gGLesQ",
-    authDomain: "gstar-cc079.firebaseapp.com",
-    databaseURL: "https://gstar-cc079-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    projectId: "gstar-cc079",
-    storageBucket: "gstar-cc079.appspot.com",
-    messagingSenderId: "806565435792",
-    appId: "1:806565435792:web:45da248a71314b90903b15",
-    measurementId: "G-XSK9KTX19R"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID
 });
 const dbRef = ref(getDatabase(firebaseApp));
 

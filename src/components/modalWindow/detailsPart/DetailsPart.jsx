@@ -21,11 +21,12 @@ const DetailsPart = ({ modalWinEl, setModalWinEl, selectedItem }) => {
     const { name, price, brand, description } = selectedItem.item;
     const isItemBicycle = selectedItem.type === 'bicycles';
 
+    const viewPrice = price !== undefined ? price.toString().replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ') : '';
     return (
         <div className={`${styles.details} ${isWinActive}`}>
             <p className={styles.name}>{name}</p>
             <p className={styles.brand}>{brand}</p>
-            <p className={styles.price}>{price}</p>
+            <p className={styles.price}>{viewPrice} сом</p>
             <p className={styles.description}>{description}</p>
             <a href="https://wa.me/+996702557299" className={styles.buyButton}>Купить</a>
             {isItemBicycle ? <button className={styles.charcsButton} onClick={unSetModalEl}>Характеристики →</button> : null}
