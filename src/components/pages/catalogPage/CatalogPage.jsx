@@ -11,6 +11,8 @@ function CatalogPage({ type, setActive, onItemSelected, loading, setLoading }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [filter, setFilter] = useState('morePopular');
     const [content, setContent] = useState(listOfItems);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [itemsPerPage, setItemsPerPage] = useState(9);
 
     const { getAllItems, requestLoading } = useGStarService();
 

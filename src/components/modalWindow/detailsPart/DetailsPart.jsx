@@ -5,7 +5,8 @@ import styles from "./detailsPart.module.scss";
 const DetailsPart = ({ modalWinEl, setModalWinEl, selectedItem }) => {
 
     useEffect(() => {
-        setModalEl();
+        setModalEl('');
+        // eslint-disable-next-line
     }, [])
 
     const setModalEl = () => {

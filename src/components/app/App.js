@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { MainPage, CatalogPage, ServicePage } from "../pages";
+import { MainPage, CatalogPage, ServicePage, ErrorPage } from "../pages";
 
 import MenuBar from "../menuBar/MenuBar";
 import ModalWindow from "../modalWindow/ModalWindow";
@@ -45,6 +45,7 @@ function App() {
             <Route path="/bicycle-parts" element={<CatalogPage type="bicycleParts" setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
             <Route path="/bicycle-accs" element={<CatalogPage type="bicycleAccs" setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
             <Route path="/bicycle-service" element={<ServicePage />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
       </Router>

@@ -1,0 +1,32 @@
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+
+    .errorImgWrapper {
+        padding: 0 15px;
+
+        img {
+            width: 400px;
+        }
+    }
+
+    .errorInfo {
+        padding: 0 15px;
+        margin-top: 10px;
+
+        p {
+            font-size: 26px;
+            font-weight: bold;
+            text-align: center;
+
+            span {
+                font-size: 140px;
+                line-height: 100px;
+                color: #9F0013;
+            }
+        }
+    }
+}
