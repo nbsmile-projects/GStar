@@ -14,7 +14,7 @@ function CatalogPage({ type }) {
     const [listOfItems, setListOfItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filter, setFilter] = useState('morePopular');
-    const [content, setContent] = useState(listOfItems);
+    const [content, setContent] = useState([]);
 
     const { getAllItems, requestLoading } = useGStarService();
 

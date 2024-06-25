@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { MainPage, CatalogPage, ServicePage, ErrorPage } from "../pages";
 
 import { menuBarStatus } from "../menuBar/menuBarSlice";
-import { modalWinStatus } from "../modalWindow/modalWinSlice";
 
 import MenuBar from "../menuBar/MenuBar";
 import ModalWindow from "../modalWindow/ModalWindow";
-import DetailsPart from "../modalWindow/detailsPart/DetailsPart";
-import CharacsPart from '../modalWindow/characsPart/CharacsPart';
+import SelectedItemInfo from "../selectedItemInfo/SelectedItemInfo";
 
 import '../../baseStyles.scss';
 import styles from './app.module.scss';
@@ -17,21 +15,6 @@ import styles from './app.module.scss';
 function App() {
   const dispatch = useDispatch();
   const selectedItem = useSelector(state => state.modalWin.selectedItem);
-
-  const selectedItemInfo = () => {
-    const { thumbnail = '' } = selectedItem.item;
-
-    return (
-      <div className={styles.itemModalWindow} >
-        <img src={`${process.env.PUBLIC_URL}${thumbnail.path}`} alt={"modalWinThumbnail"} />
-        <div className={styles.info}>
-          <DetailsPart />
-          <CharacsPart />
-        </div>
-        <button className={styles.closeModalWinBtn} onClick={() => dispatch(modalWinStatus(false))}>x</button>
-      </div>
-    )
-  }
 
   return (
     <div className={styles.App}>
@@ -50,7 +33,7 @@ function App() {
         </div>
       </Router>
       <ModalWindow>
-        {selectedItem !== null ? selectedItemInfo() : null}
+        {selectedItem !== null ? <SelectedItemInfo /> : null}
       </ModalWindow>
     </div>
   );
