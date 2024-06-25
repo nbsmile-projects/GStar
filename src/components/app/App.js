@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,8 +15,6 @@ import '../../baseStyles.scss';
 import styles from './app.module.scss';
 
 function App() {
-  const [loading, setLoading] = useState(false);
-
   const dispatch = useDispatch();
   const selectedItem = useSelector(state => state.modalWin.selectedItem);
 
@@ -44,9 +41,9 @@ function App() {
         <div className={styles.content}>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/bicycles" element={<CatalogPage type="bicycles" loading={loading} setLoading={setLoading} />} />
-            <Route path="/bicycle-parts" element={<CatalogPage type="bicycleParts" loading={loading} setLoading={setLoading} />} />
-            <Route path="/bicycle-accs" element={<CatalogPage type="bicycleAccs" loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycles" element={<CatalogPage type="bicycles" />} />
+            <Route path="/bicycle-parts" element={<CatalogPage type="bicycleParts" />} />
+            <Route path="/bicycle-accs" element={<CatalogPage type="bicycleAccs" />} />
             <Route path="/bicycle-service" element={<ServicePage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>

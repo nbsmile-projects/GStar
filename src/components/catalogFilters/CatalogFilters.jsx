@@ -1,7 +1,12 @@
+import { useDispatch } from "react-redux";
+
+import { setLoading } from "./catalogFiltersSlice";
 
 import styles from "./catalogFilters.module.scss";
 
-const CatalogFilter = ({ searchTerm, setSearchTerm, setFilter, setLoading }) => {
+const CatalogFilters = ({ searchTerm, setSearchTerm, setFilter }) => {
+    const dispatch = useDispatch();
+
     return (
         <div className={styles.catalogFilter}>
             <svg className={styles.searchIcon} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
@@ -13,11 +18,11 @@ const CatalogFilter = ({ searchTerm, setSearchTerm, setFilter, setLoading }) => 
                 placeholder="Поиск"
                 onChange={e => {
                     setSearchTerm(e.target.value);
-                    setLoading(true);
+                    dispatch(setLoading(true));
                 }}
                 value={searchTerm} />
             <select className={styles.filter} name="select" onChange={(e) => {
-                setLoading(true);
+                dispatch(setLoading(true));
                 setFilter(e.target.value)
             }}>
                 <option value="morePopular">Сначала популярные</option>
@@ -29,4 +34,4 @@ const CatalogFilter = ({ searchTerm, setSearchTerm, setFilter, setLoading }) => 
     )
 }
 
-export default CatalogFilter;
+export default CatalogFilters;

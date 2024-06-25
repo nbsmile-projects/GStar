@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { modalWinStatus, setSelectedItem } from "../../modalWindow/modalWinSlice";
+import { setLoading } from "../../catalogFilters/catalogFiltersSlice";
 
 import useGStarService from "../../../services/GStarService";
-import CatalogFilter from "../../catalogFilters/CatalogFilters";
+import CatalogFilters from "../../catalogFilters/CatalogFilters";
 import Spinner from "../../spinner/Spinner";
 
 import styles from "./catalogPage.module.scss";
 
-function CatalogPage({ type, loading, setLoading }) {
+function CatalogPage({ type }) {
     const [listOfItems, setListOfItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filter, setFilter] = useState('morePopular');
@@ -18,6 +19,7 @@ function CatalogPage({ type, loading, setLoading }) {
     const { getAllItems, requestLoading } = useGStarService();
 
     const dispatch = useDispatch();
+    const loading = useSelector(state => state.catalogFilters.loading);
 
     useEffect(() => {
         onRequest(type);
@@ -39,12 +41,12 @@ function CatalogPage({ type, loading, setLoading }) {
         getAllItems(category)
             .then(data => {
                 setListOfItems(data);
-                setLoading(true);
+                dispatch(setLoading(true));
             });
     }
 
     const onItemsLoaded = (items) => {
-        setLoading(false);
+        dispatch(setLoading(false));
         setContent(items);
     }
 
@@ -73,7 +75,7 @@ function CatalogPage({ type, loading, setLoading }) {
     }
 
     const searchItem = (listOfItems, searchText) => {
-        setLoading(true);
+        dispatch(setLoading(true));
         if (!searchText) {
             return listOfItems;
         }
@@ -83,7 +85,7 @@ function CatalogPage({ type, loading, setLoading }) {
     }
 
     const filterItems = (items, type) => {
-        setLoading(true);
+        dispatch(setLoading(true));
         switch (type) {
             case "morePopular":
                 return items.sort((a, b) => b.sold - a.sold);
@@ -111,11 +113,10 @@ function CatalogPage({ type, loading, setLoading }) {
 
     return (
         <div className={styles.catalog}>
-            <CatalogFilter
+            <CatalogFilters
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
-                setFilter={setFilter}
-                setLoading={setLoading} />
+                setFilter={setFilter} />
             <div className={styles.catalogList}>
                 {requestLoading ? <Spinner /> : content}
             </div>
