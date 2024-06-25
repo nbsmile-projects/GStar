@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { MainPage, CatalogPage, ServicePage, ErrorPage } from "../pages";
+
+import { menuBarActive } from "../menuBar/menuBarSlice";
 
 import MenuBar from "../menuBar/MenuBar";
 import ModalWindow from "../modalWindow/ModalWindow";
@@ -12,11 +15,12 @@ import '../../baseStyles.scss';
 import styles from './app.module.scss';
 
 function App() {
-  const [isMenuBarActive, setIsMenuBarActive] = useState(false);
   const [isModalActive, setModalActive] = useState(false);
   const [modalWinEl, setModalWinEl] = useState(null);
   const [selectedItem, setSelectedItem] = useState({ item: {}, type: '' });
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const selectedItemInfo = () => {
     const { thumbnail = '' } = selectedItem.item;
@@ -35,9 +39,9 @@ function App() {
 
   return (
     <div className={styles.App}>
-      <img className={styles.burger} src={`${process.env.PUBLIC_URL}/burger/openBurger.svg`} onClick={() => setIsMenuBarActive(true)} alt="burgerIcon" />
+      <img className={styles.burger} src={`${process.env.PUBLIC_URL}/burger/openBurger.svg`} onClick={() => dispatch(menuBarActive())} alt="burgerIcon" />
       <Router>
-        <MenuBar isMenuBarActive={isMenuBarActive} setIsMenuBarActive={setIsMenuBarActive} />
+        <MenuBar />
         <div className={styles.content}>
           <Routes>
             <Route path="/" element={<MainPage />} />

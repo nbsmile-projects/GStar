@@ -1,8 +1,13 @@
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
+
+import { menuBarInactive } from "./menuBarSlice";
 
 import styles from './menuBar.module.scss';
 
-const MenuBar = ({ isMenuBarActive, setIsMenuBarActive }) => {
+const MenuBar = () => {
+    const isMenuBarActive = useSelector(state => state.menuBar.isMenuBarActive);
+    const dispatch = useDispatch();
 
     const isMenuBarActiveClass = isMenuBarActive ? `${styles.menuBarActive}` : ' ';
     const isMenuBarWrapperActiveClass = isMenuBarActive ? `${styles.menuBarWrapperActive}` : ' ';
@@ -23,9 +28,9 @@ const MenuBar = ({ isMenuBarActive, setIsMenuBarActive }) => {
     };
 
     return (
-        <div className={`${styles.menuBarWrapper} ${isMenuBarWrapperActiveClass}`} onClick={() => setIsMenuBarActive(false)} >
+        <div className={`${styles.menuBarWrapper} ${isMenuBarWrapperActiveClass}`} onClick={() => dispatch(menuBarInactive())} >
             <div className={`${styles.menuBar} ${isMenuBarActiveClass}`} onClick={e => e.stopPropagation()}>
-                <img className={styles.closeBurgerIcon} src={`${process.env.PUBLIC_URL} /burger/hideBurger.svg`} onClick={() => setIsMenuBarActive(false)} alt="hideBurger" />
+                <img className={styles.closeBurgerIcon} src={`${process.env.PUBLIC_URL} /burger/hideBurger.svg`} onClick={() => dispatch(menuBarInactive())} alt="hideBurger" />
                 <div className={styles.logo}>
                     <NavLink to="/"><img width={300} src={`${process.env.PUBLIC_URL} /logos/Logo2light.svg`} alt="logo" /></NavLink>
                 </div>
