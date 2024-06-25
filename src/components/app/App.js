@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { MainPage, CatalogPage, ServicePage, ErrorPage } from "../pages";
 
-import { menuBarActive } from "../menuBar/menuBarSlice";
+import { menuBarStatus } from "../menuBar/menuBarSlice";
+import { modalWinStatus } from "../modalWindow/modalWinSlice";
 
 import MenuBar from "../menuBar/MenuBar";
 import ModalWindow from "../modalWindow/ModalWindow";
@@ -15,12 +16,10 @@ import '../../baseStyles.scss';
 import styles from './app.module.scss';
 
 function App() {
-  const [isModalActive, setModalActive] = useState(false);
-  const [modalWinEl, setModalWinEl] = useState(null);
-  const [selectedItem, setSelectedItem] = useState({ item: {}, type: '' });
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const selectedItem = useSelector(state => state.modalWin.selectedItem);
 
   const selectedItemInfo = () => {
     const { thumbnail = '' } = selectedItem.item;
@@ -29,31 +28,31 @@ function App() {
       <div className={styles.itemModalWindow} >
         <img src={`${process.env.PUBLIC_URL}${thumbnail.path}`} alt={"modalWinThumbnail"} />
         <div className={styles.info}>
-          <DetailsPart modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} selectedItem={selectedItem} />
-          <CharacsPart modalWinEl={modalWinEl} setModalWinEl={setModalWinEl} />
+          <DetailsPart />
+          <CharacsPart />
         </div>
-        <button className={styles.closeModalWinBtn} onClick={() => setModalActive(false)}>x</button>
+        <button className={styles.closeModalWinBtn} onClick={() => dispatch(modalWinStatus(false))}>x</button>
       </div>
     )
   }
 
   return (
     <div className={styles.App}>
-      <img className={styles.burger} src={`${process.env.PUBLIC_URL}/burger/openBurger.svg`} onClick={() => dispatch(menuBarActive())} alt="burgerIcon" />
+      <img className={styles.burger} src={`${process.env.PUBLIC_URL}/burger/openBurger.svg`} onClick={() => dispatch(menuBarStatus(true))} alt="burgerIcon" />
       <Router>
         <MenuBar />
         <div className={styles.content}>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/bicycles" element={<CatalogPage type="bicycles" setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
-            <Route path="/bicycle-parts" element={<CatalogPage type="bicycleParts" setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
-            <Route path="/bicycle-accs" element={<CatalogPage type="bicycleAccs" setActive={setModalActive} onItemSelected={setSelectedItem} loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycles" element={<CatalogPage type="bicycles" loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycle-parts" element={<CatalogPage type="bicycleParts" loading={loading} setLoading={setLoading} />} />
+            <Route path="/bicycle-accs" element={<CatalogPage type="bicycleAccs" loading={loading} setLoading={setLoading} />} />
             <Route path="/bicycle-service" element={<ServicePage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
       </Router>
-      <ModalWindow active={isModalActive} setActive={setModalActive}>
+      <ModalWindow>
         {selectedItem !== null ? selectedItemInfo() : null}
       </ModalWindow>
     </div>

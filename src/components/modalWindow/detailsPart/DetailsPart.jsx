@@ -1,20 +1,26 @@
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setModalWinEl } from "../modalWinSlice";
 
 import styles from "./detailsPart.module.scss";
 
-const DetailsPart = ({ modalWinEl, setModalWinEl, selectedItem }) => {
+const DetailsPart = () => {
+    const dispatch = useDispatch();
+    const modalWinEl = useSelector(state => state.modalWin.modalWinEl);
+    const selectedItem = useSelector(state => state.modalWin.selectedItem);
 
     useEffect(() => {
-        setModalEl('');
+        setModalEl('Win1');
         // eslint-disable-next-line
     }, [])
 
     const setModalEl = () => {
-        setModalWinEl('Win1');
+        dispatch(setModalWinEl('Win1'));
     }
 
     const unSetModalEl = () => {
-        setModalWinEl('Win2');
+        dispatch(setModalWinEl('Win2'));
     }
 
     const isWinActive = modalWinEl === 'Win1' ? styles.active : "";

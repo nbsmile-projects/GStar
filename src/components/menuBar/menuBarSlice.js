@@ -6,15 +6,11 @@ const menuBarSlice = createSlice({
     name: 'menuBar',
     initialState,
     reducers: {
-        menuBarActive: state => { state.isMenuBarActive = true },
-        menuBarInactive: state => { state.isMenuBarActive = false }
+        menuBarStatus: (state, action) => { state.isMenuBarActive = action.payload }
     }
 });
 
 const { actions, reducer } = menuBarSlice;
 
+export const { menuBarStatus } = actions;
 export default reducer;
-export const {
-    menuBarActive,
-    menuBarInactive
-} = actions;

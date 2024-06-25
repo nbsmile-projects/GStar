@@ -1,13 +1,17 @@
+import { useDispatch, useSelector } from "react-redux";
 
+import { setModalWinEl } from "../modalWinSlice";
 
 import styles from "./characsPart.module.scss";
 
-const CharacsPart = ({ modalWinEl, setModalWinEl }) => {
+const CharacsPart = () => {
+    const dispatch = useDispatch();
+    const modalWinEl = useSelector(state => state.modalWin.modalWinEl)
 
     const isWinActive = modalWinEl === 'Win2' ? styles.active : "";
 
     const unSetModalEl = () => {
-        setModalWinEl('Win1');
+        dispatch(setModalWinEl('Win1'));
     }
 
     return (

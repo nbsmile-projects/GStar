@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
-import useGStarService from "../../../services/GStarService";
+import { useDispatch } from "react-redux";
 
-import CatalogFilter from "../../catalogFilter/CatalogFilter";
+import { modalWinStatus, setSelectedItem } from "../../modalWindow/modalWinSlice";
+
+import useGStarService from "../../../services/GStarService";
+import CatalogFilter from "../../catalogFilters/CatalogFilters";
 import Spinner from "../../spinner/Spinner";
 
 import styles from "./catalogPage.module.scss";
 
-function CatalogPage({ type, setActive, onItemSelected, loading, setLoading }) {
+function CatalogPage({ type, loading, setLoading }) {
     const [listOfItems, setListOfItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filter, setFilter] = useState('morePopular');
     const [content, setContent] = useState(listOfItems);
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [itemsPerPage, setItemsPerPage] = useState(9);
 
     const { getAllItems, requestLoading } = useGStarService();
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         onRequest(type);
@@ -53,11 +56,11 @@ function CatalogPage({ type, setActive, onItemSelected, loading, setLoading }) {
             return (
                 <li className={styles.item} key={item.id}>
                     <div className={styles.card} onClick={() => {
-                        onItemSelected({
+                        dispatch(setSelectedItem({
                             item: item,
                             type: type
-                        });
-                        setActive(true);
+                        }));
+                        dispatch(modalWinStatus(true));
                     }}>
                         <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}${item.thumbnail.path}`} alt="thumbnail" />
                         <p className={styles.itemName}>{item.name}</p>

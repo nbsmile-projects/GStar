@@ -1,5 +1,5 @@
 
-import styles from "./catalogFilter.module.scss";
+import styles from "./catalogFilters.module.scss";
 
 const CatalogFilter = ({ searchTerm, setSearchTerm, setFilter, setLoading }) => {
     return (
