@@ -1,11 +1,12 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { setLoading } from "./catalogFiltersSlice";
+import { setLoading, setSearchTerm, setFilter } from "./catalogFiltersSlice";
 
 import styles from "./catalogFilters.module.scss";
 
-const CatalogFilters = ({ searchTerm, setSearchTerm, setFilter }) => {
+const CatalogFilters = () => {
     const dispatch = useDispatch();
+    const searchTerm = useSelector(state => state.catalogFilters.searchTerm);
 
     return (
         <div className={styles.catalogFilter}>
@@ -17,13 +18,13 @@ const CatalogFilters = ({ searchTerm, setSearchTerm, setFilter }) => {
                 type="text"
                 placeholder="Поиск"
                 onChange={e => {
-                    setSearchTerm(e.target.value);
+                    dispatch(setSearchTerm(e.target.value));
                     dispatch(setLoading(true));
                 }}
                 value={searchTerm} />
             <select className={styles.filter} name="select" onChange={(e) => {
+                dispatch(setFilter(e.target.value));
                 dispatch(setLoading(true));
-                setFilter(e.target.value)
             }}>
                 <option value="morePopular">Сначала популярные</option>
                 <option value="newer">Сначала новые</option>

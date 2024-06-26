@@ -3,9 +3,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import menuBar from "../components/menuBar/menuBarSlice";
 import modalWin from "../components/modalWindow/modalWinSlice";
 import catalogFilters from "../components/catalogFilters/catalogFiltersSlice";
+import itemsList from "../components/itemsList/itemsListSlice";
 
 const store = configureStore({
-    reducer: { menuBar, modalWin, catalogFilters },
+    reducer: { menuBar, modalWin, catalogFilters, itemsList },
     devTools: process.env.NODE_ENV !== "production"
 })
 
