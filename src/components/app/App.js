@@ -8,6 +8,7 @@ import { menuBarStatus } from "../menuBar/menuBarSlice";
 import MenuBar from "../menuBar/MenuBar";
 import ModalWindow from "../modalWindow/ModalWindow";
 import SelectedItemInfo from "../selectedItemInfo/SelectedItemInfo";
+import LoginPage from "../pages/loginPage/LoginPage";
 
 import '../../baseStyles.scss';
 import styles from './app.module.scss';
@@ -28,6 +29,7 @@ function App() {
             <Route path="/bicycle-parts" element={<CatalogPage type="bicycleParts" />} />
             <Route path="/bicycle-accs" element={<CatalogPage type="bicycleAccs" />} />
             <Route path="/bicycle-service" element={<ServicePage />} />
+            <Route path="/admin" element={<LoginPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
