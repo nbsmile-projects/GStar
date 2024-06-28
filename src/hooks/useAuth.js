@@ -4,7 +4,7 @@ const useAuth = () => {
     const { email, token, id } = useSelector(state => state.admin);
 
     return {
-        isAuth: !!email,
+        isAuth: !!localStorage.getItem("email"),
         email,
         token,
         id

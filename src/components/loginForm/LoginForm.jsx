@@ -19,7 +19,8 @@ const Login = () => {
                     token: user.accessToken,
                     id: user.uid
                 }))
-                navigate("/admin")
+                localStorage.setItem("email", JSON.stringify(user.email));
+                navigate("/admin");
             })
             .catch(() => {
                 dispatch(setLoginError(true))
