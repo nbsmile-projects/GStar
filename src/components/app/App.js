@@ -9,6 +9,7 @@ import MenuBar from "../menuBar/MenuBar";
 import ModalWindow from "../modalWindow/ModalWindow";
 import SelectedItemInfo from "../selectedItemInfo/SelectedItemInfo";
 import LoginPage from "../pages/loginPage/LoginPage";
+import AdminPage from "../pages/adminPage/AdminPage";
 
 import '../../baseStyles.scss';
 import styles from './app.module.scss';
@@ -25,11 +26,12 @@ function App() {
         <div className={styles.content}>
           <Routes>
             <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/admin" element={<AdminPage />} />
             <Route path="/bicycles" element={<CatalogPage type="bicycles" />} />
             <Route path="/bicycle-parts" element={<CatalogPage type="bicycleParts" />} />
             <Route path="/bicycle-accs" element={<CatalogPage type="bicycleAccs" />} />
             <Route path="/bicycle-service" element={<ServicePage />} />
-            <Route path="/admin" element={<LoginPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
