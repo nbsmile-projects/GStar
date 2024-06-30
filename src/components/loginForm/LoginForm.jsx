@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-import { setAdmin, setLoginError } from "../loginForm/adminSlice";
+import { setAdminData, setLoginError } from "../loginForm/adminSlice";
 
 import Form from "./Form";
 
@@ -14,7 +14,7 @@ const Login = () => {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, email, password)
             .then(({ user }) => {
-                dispatch(setAdmin({
+                dispatch(setAdminData({
                     email: user.email,
                     token: user.accessToken,
                     id: user.uid

@@ -11,12 +11,12 @@ const adminSlice = createSlice({
     name: "admin",
     initialState,
     reducers: {
-        setAdmin: (state, action) => {
+        setAdminData: (state, action) => {
             state.email = action.payload.email;
             state.token = action.payload.token;
             state.id = action.payload.id;
         },
-        removeAdmin: (state) => {
+        removeAdminData: (state) => {
             state.email = null;
             state.token = null;
             state.id = null;
@@ -30,8 +30,8 @@ const adminSlice = createSlice({
 const { reducer, actions } = adminSlice;
 
 export const {
-    setAdmin,
-    removeAdmin,
+    setAdminData,
+    removeAdminData,
     setLoginError
 } = actions;
 export default reducer;
