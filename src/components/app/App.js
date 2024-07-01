@@ -8,8 +8,9 @@ import { menuBarStatus } from "../menuBar/menuBarSlice";
 import MenuBar from "../menuBar/MenuBar";
 import ModalWindow from "../modalWindow/ModalWindow";
 import SelectedItemInfo from "../selectedItemInfo/SelectedItemInfo";
-import LoginPage from "../pages/loginPage/LoginPage";
-import Admin from "../../admin/Admin";
+
+import LoginPage from "../../admin/pages/loginPage/LoginPage";
+import Admin from "../../admin/components/admin/Admin";
 
 import '../../baseStyles.scss';
 import styles from './app.module.scss';
@@ -18,7 +19,6 @@ function App() {
   const dispatch = useDispatch();
   const selectedItem = useSelector(state => state.modalWin.selectedItem);
   const location = useLocation();
-  console.log(location.pathname)
 
   const burger = location.pathname !== "/login" && location.pathname !== "/admin" ? <img className={styles.burger} src={`${process.env.PUBLIC_URL}/burger/openBurger.svg`} onClick={() => dispatch(menuBarStatus(true))} alt="burgerIcon" /> : null;
   return (
@@ -29,9 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/admin" element={<Admin />} >
-            <Route />
-          </Route>
+          <Route path="/admin" element={<Admin />} />
           <Route path="/bicycles" element={<CatalogPage type="bicycles" />} />
           <Route path="/bicycle-parts" element={<CatalogPage type="bicycleParts" />} />
           <Route path="/bicycle-accs" element={<CatalogPage type="bicycleAccs" />} />
@@ -42,7 +40,7 @@ function App() {
       <ModalWindow>
         {selectedItem !== null ? <SelectedItemInfo /> : null}
       </ModalWindow>
-    </div>
+    </div >
   );
 }
 

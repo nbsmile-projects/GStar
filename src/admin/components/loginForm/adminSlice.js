@@ -4,7 +4,9 @@ const initialState = {
     email: null,
     token: null,
     id: null,
-    loginError: false
+    loginError: false,
+    activeSection: "add-item",
+    loading: false
 };
 
 const adminSlice = createSlice({
@@ -23,6 +25,12 @@ const adminSlice = createSlice({
         },
         setLoginError: (state, action) => {
             state.loginError = action.payload;
+        },
+        setActiveSection: (state, action) => {
+            state.activeSection = action.payload;
+        },
+        setLoading: (state, action) => {
+            state.loading = action.payload;
         }
     }
 })
@@ -32,6 +40,8 @@ const { reducer, actions } = adminSlice;
 export const {
     setAdminData,
     removeAdminData,
-    setLoginError
+    setLoginError,
+    setActiveSection,
+    setLoading
 } = actions;
 export default reducer;
