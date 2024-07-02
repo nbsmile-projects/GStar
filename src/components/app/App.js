@@ -14,13 +14,14 @@ import Admin from "../../admin/components/admin/Admin";
 
 import '../../baseStyles.scss';
 import styles from './app.module.scss';
+import burgerIcon from "../../assets/burger/openBurger.svg";
 
 function App() {
   const dispatch = useDispatch();
   const selectedItem = useSelector(state => state.modalWin.selectedItem);
   const location = useLocation();
 
-  const burger = location.pathname !== "/login" && location.pathname !== "/admin" ? <img className={styles.burger} src={`${process.env.PUBLIC_URL}/burger/openBurger.svg`} onClick={() => dispatch(menuBarStatus(true))} alt="burgerIcon" /> : null;
+  const burger = location.pathname !== "/login" && location.pathname !== "/admin" ? <img className={styles.burger} src={burgerIcon} onClick={() => dispatch(menuBarStatus(true))} alt="burgerIcon" /> : null;
   return (
     <div className={styles.App}>
       {burger}

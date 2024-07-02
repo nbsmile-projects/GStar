@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 
-import { setActiveSection, setLoading } from "../loginForm/adminSlice";
+import { setActiveSection, setLoading } from "../admin/adminSlice";
 
 import styles from "./adminMenuBar.module.scss";
 
@@ -9,9 +9,6 @@ const AdminMenuBar = () => {
 
     return (
         <div className={styles.menuBar}>
-            {/* <div className={styles.logo}>
-                <img width={70} src={`${process.env.PUBLIC_URL} /logos/Logo2light.svg`} alt="logo" />
-            </div> */}
             <div className={styles.menu}>
                 <ul>
                     <li onClick={() => {

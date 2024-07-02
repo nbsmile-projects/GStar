@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-import { setAdminData, setLoginError } from "./adminSlice";
+import { setAdminData, setLoginError } from "../admin/adminSlice";
 
 import Form from "./Form";
 

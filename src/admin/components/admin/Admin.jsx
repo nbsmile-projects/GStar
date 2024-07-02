@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import useAuth from "../../../hooks/useAuth";
-import { removeAdminData } from "../loginForm/adminSlice";
+import { removeAdminData } from "./adminSlice";
 
 import AdminMenuBar from "../adminMenuBar/AdminMenuBar";
 import AddItemPage from "../../pages/addItemPage/AddItemPage";

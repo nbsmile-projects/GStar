@@ -15,7 +15,7 @@ const SelectedItemInfo = () => {
 
     return (
         <div className={styles.itemModalWindow} >
-            <img src={`${process.env.PUBLIC_URL}${thumbnail.path}`} alt={"modalWinThumbnail"} />
+            <img src={thumbnail} alt={"modalWinThumbnail"} />
             <div className={styles.info}>
                 <DetailsPart />
                 <CharacsPart />

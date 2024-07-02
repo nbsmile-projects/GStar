@@ -72,7 +72,7 @@ const ItemsList = () => {
                         }));
                         dispatch(modalWinStatus(true));
                     }}>
-                        <img className={styles.thumbnail} src={`${process.env.PUBLIC_URL}${item.thumbnail.path}`} alt="thumbnail" />
+                        <img className={styles.thumbnail} src={item.thumbnail} alt="thumbnail" />
                         <p className={styles.itemName}>{item.name}</p>
                         <p className={styles.itemPrice}>{price} сом</p>
                     </div>

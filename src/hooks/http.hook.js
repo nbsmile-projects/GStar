@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { getDatabase, get, child, ref } from 'firebase/database';
 
-import { firebaseApp } from "../firebaseInitial";
+import { firebaseApp} from "../firebaseInitial";
 
 const dbRef = ref(getDatabase(firebaseApp));
 
@@ -30,9 +30,7 @@ export const useHttp = () => {
         }
     }, []);
 
-    const clearError = useCallback(() => setError(null), []);
-
-    return { requestLoading, request, error, clearError }
+    return { requestLoading, request, error }
 }
 
 

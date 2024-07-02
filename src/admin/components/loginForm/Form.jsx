@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setLoginError } from "./adminSlice";
+import { setLoginError } from "../admin/adminSlice";
 
 import styles from "./form.module.scss";
 
