@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    loading: false,
+    filtering: false,
     searchTerm: "",
     filter: "morePopular"
 }
@@ -10,7 +10,7 @@ const catalogFiltersSlice = createSlice({
     name: "catalogFilters",
     initialState,
     reducers: {
-        setLoading: (state, action) => { state.loading = action.payload },
+        setFiltering: (state, action) => { state.filtering = action.payload },
         setSearchTerm: (state, action) => { state.searchTerm = action.payload },
         setFilter: (state, action) => { state.filter = action.payload }
     }
@@ -19,7 +19,7 @@ const catalogFiltersSlice = createSlice({
 const { actions, reducer } = catalogFiltersSlice;
 
 export const {
-    setLoading,
+    setFiltering,
     setSearchTerm,
     setFilter
 } = actions;

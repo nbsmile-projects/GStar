@@ -1,16 +1,16 @@
 import { useState, useCallback } from "react";
-import { getDatabase, get, child, ref } from 'firebase/database';
+import { get, child, ref as databaseRef } from 'firebase/database';
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage, database } from "../firebaseInitial";
 
-import { firebaseApp} from "../firebaseInitial";
-
-const dbRef = ref(getDatabase(firebaseApp));
+const dbRef = databaseRef(database);
 
 export const useHttp = () => {
-    const [requestLoading, setRequestLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const request = useCallback(async (category, item = null) => {
-        setRequestLoading(true);
+        setLoading(true);
 
         try {
             const snapshot = await get(child(dbRef, `${category}${item ? `/${item}` : ''}`));
@@ -21,16 +21,33 @@ export const useHttp = () => {
 
             const data = snapshot.val();
 
-            setRequestLoading(false);
+            setLoading(false);
             return data;
         } catch (e) {
-            setRequestLoading(false);
+            setLoading(false);
             setError(e.message);
             throw e;
         }
     }, []);
 
-    return { requestLoading, request, error }
+    const upload = useCallback(async (file, category, fileName) => {
+        setLoading(true);
+        const thumbnailRef = storageRef(storage, `${category}/${fileName}`);
+
+        try {
+            const value = await uploadBytes(thumbnailRef, file);
+            const url = await getDownloadURL(value.ref);
+
+            setLoading(false);
+            return url;
+        } catch (e) {
+            setLoading(false);
+            setError(e.message);
+            throw e;
+        }
+    }, []);
+
+    return { loading, request, error, upload }
 }
 
 

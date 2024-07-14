@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../../firebaseInitial";
 
 import { setAdminData, setLoginError } from "../admin/adminSlice";
 
@@ -11,7 +12,6 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (email, password) => {
-        const auth = getAuth();
         await signInWithEmailAndPassword(auth, email, password)
             .then(({ user }) => {
                 dispatch(setAdminData({
@@ -19,7 +19,11 @@ const Login = () => {
                     token: user.accessToken,
                     id: user.uid
                 }))
-                localStorage.setItem("email", JSON.stringify(user.email));
+                localStorage.setItem("admin", JSON.stringify({
+                    email: user.email,
+                    token: user.accessToken,
+                    id: user.uid
+                }));
                 navigate("/admin");
             })
             .catch(() => {

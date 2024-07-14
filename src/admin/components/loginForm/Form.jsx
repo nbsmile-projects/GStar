@@ -25,7 +25,10 @@ const Form = ({ handleSubmit }) => {
 
 
     return (
-        <div className={styles.form}>
+        <form className={styles.form} onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(email, password);
+        }}>
             <h1 className={styles.title}>Log In</h1>
             <input
                 type="email"
@@ -42,8 +45,8 @@ const Form = ({ handleSubmit }) => {
                 className={styles.input}
             />
             {loginError ? <p className={styles.loginError}>Invalid login or password!</p> : null}
-            <button onClick={() => handleSubmit(email, password)} className={styles.button}>Log In</button>
-        </div>
+            <button type="submit" className={styles.button}>Log In</button>
+        </form>
     )
 }
 

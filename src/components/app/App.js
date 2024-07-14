@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MainPage, CatalogPage, ServicePage, ErrorPage } from "../pages";
 
 import { menuBarStatus } from "../menuBar/menuBarSlice";
+import { modalWinStatus as setModalWinStatus } from "../modalWindow/modalWinSlice";
 
 import MenuBar from "../menuBar/MenuBar";
 import ModalWindow from "../modalWindow/ModalWindow";
@@ -19,6 +20,7 @@ import burgerIcon from "../../assets/burger/openBurger.svg";
 function App() {
   const dispatch = useDispatch();
   const selectedItem = useSelector(state => state.modalWin.selectedItem);
+  const modalWindowStatus = useSelector(state => state.modalWin.isModalWinActive);
   const location = useLocation();
 
   const burger = location.pathname !== "/login" && location.pathname !== "/admin" ? <img className={styles.burger} src={burgerIcon} onClick={() => dispatch(menuBarStatus(true))} alt="burgerIcon" /> : null;
@@ -38,7 +40,7 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>
-      <ModalWindow>
+      <ModalWindow modalWinStatus={modalWindowStatus} setModalWinStatus={setModalWinStatus}>
         {selectedItem !== null ? <SelectedItemInfo /> : null}
       </ModalWindow>
     </div >

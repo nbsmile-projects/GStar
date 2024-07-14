@@ -1,19 +1,17 @@
-import { useSelector, useDispatch } from "react-redux";
-
-import { modalWinStatus } from "./modalWinSlice";
+import { useDispatch } from "react-redux";
 
 import styles from "./modalWindow.module.scss";
 
-const ModalWindow = ({ children }) => {
+const ModalWindow = ({ children, modalWinStatus, setModalWinStatus }) => {
     const dispatch = useDispatch();
-    const ModalWinStatus = useSelector(state => state.modalWin.isModalWinActive);
 
-    const isModalWinActive = ModalWinStatus ? `${styles.modal} ${styles.active}` : styles.modal;
-    const isModalContentActive = ModalWinStatus ? `${styles.modalContent} ${styles.active}` : styles.modalContent;
+    const isModalWinActive = modalWinStatus ? `${styles.modal} ${styles.active}` : styles.modal;
+    const isModalContentActive = modalWinStatus ? `${styles.modalContent} ${styles.active}` : styles.modalContent;
 
     return (
-        <div className={isModalWinActive} onClick={() => dispatch(modalWinStatus(false))}>
+        <div className={isModalWinActive} onClick={() => dispatch(setModalWinStatus(false))}>
             <div className={isModalContentActive} onClick={e => e.stopPropagation()}>
+            <button className={styles.closeModalWinBtn} onClick={() => dispatch(setModalWinStatus(false))}>x</button>
                 {children}
             </div>
         </div>

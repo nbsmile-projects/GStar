@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { modalWinStatus, setSelectedItem } from "../modalWindow/modalWinSlice";
-import { setLoading } from "../catalogFilters/catalogFiltersSlice";
+import { setFiltering } from "../catalogFilters/catalogFiltersSlice";
 
 import { setListOfItems } from "./itemsListSlice";
 
 import useGStarService from "../../services/GStarService";
-import useFilters from "../catalogFilters/useFilters";
+import useFilters from "../../hooks/useFilters";
 import Spinner from "../spinner/Spinner";
 
 import styles from "./itemsList.module.scss";
@@ -15,11 +15,11 @@ import styles from "./itemsList.module.scss";
 const ItemsList = () => {
     const [content, setContent] = useState([]);
 
-    const { getAllItems, requestLoading } = useGStarService();
+    const { getAllItems, loading } = useGStarService();
     const { searchItem, filterItems } = useFilters();
 
     const dispatch = useDispatch();
-    const loading = useSelector(state => state.catalogFilters.loading);
+    const filtering = useSelector(state => state.catalogFilters.filtering);
     const filter = useSelector(state => state.catalogFilters.filter);
     const searchTerm = useSelector(state => state.catalogFilters.searchTerm);
     const listOfItems = useSelector(state => state.itemsList.listOfItems);
@@ -43,26 +43,25 @@ const ItemsList = () => {
             return () => clearTimeout(Debounce);
         }
         // eslint-disable-next-line
-    }, [loading])
+    }, [filtering])
 
-    const onRequest = (type) => {
+    const onRequest = async (type) => {
         if (type === '') return
-        getAllItems(type)
+        await getAllItems(type)
             .then(data => {
                 dispatch(setListOfItems(data));
-                dispatch(setLoading(true));
+                dispatch(setFiltering(true));
             });
     }
 
     const onItemsLoaded = (items) => {
         setContent(items);
-        dispatch(setLoading(false));
+        dispatch(setFiltering(false));
     }
 
     const renderItems = data => {
         return data.map(item => {
             const price = item.price.toString().replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ');
-
             return (
                 <li className={styles.item} key={item.id}>
                     <div className={styles.card} onClick={() => {
@@ -84,7 +83,7 @@ const ItemsList = () => {
 
     return (
         <div className={styles.catalogList}>
-            {requestLoading ? <Spinner /> : content}
+            {loading ? <Spinner /> : content}
         </div>
     )
 }

@@ -1,23 +1,23 @@
 import { useDispatch } from "react-redux";
 
-import { setLoading } from "./catalogFiltersSlice";
+import { setFiltering } from "../components/catalogFilters/catalogFiltersSlice";
 
 const useFilters = () => {
     const dispatch = useDispatch();
 
     const searchItem = (listOfItems, searchText) => {
-        dispatch(setLoading(true));
+        dispatch(setFiltering(true));
         if (!searchText) {
-            return listOfItems;
+            return Object.values(listOfItems);
         }
-        return listOfItems.filter(item => {
+        return Object.values(listOfItems).filter(item => {
             return item.name.toLowerCase().includes(searchText.toLowerCase());
         })
     }
 
     const filterItems = (items, type) => {
-        dispatch(setLoading(true));
-        let itemsSorting = [...items];
+        dispatch(setFiltering(true));
+        let itemsSorting = Object.values(items);
         switch (type) {
             case "morePopular":
                 return itemsSorting.sort((a, b) => b.sold - a.sold);

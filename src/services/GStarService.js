@@ -1,7 +1,7 @@
 import { useHttp } from "../hooks/http.hook";
 
 const useGStarService = () => {
-    const { requestLoading, error, request, clearError } = useHttp();
+    const { request, upload, loading, error } = useHttp();
 
     const getAllItems = async (category) => {
         const res = await request(category);
@@ -13,7 +13,12 @@ const useGStarService = () => {
         return res;
     }
 
-    return { getAllItems, getItem, requestLoading, error, clearError };
+    const getThumbnailURL = async (file, category, fileName) => {
+        const url = await upload(file, category, fileName);
+        return url;
+    }
+
+    return { getAllItems, getItem, getThumbnailURL, loading, error };
 }
 
 export default useGStarService;

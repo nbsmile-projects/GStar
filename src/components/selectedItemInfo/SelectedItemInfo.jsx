@@ -1,6 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-
-import { modalWinStatus } from "../modalWindow/modalWinSlice";
+import { useSelector } from "react-redux";
 
 import DetailsPart from "../modalWindow/detailsPart/DetailsPart";
 import CharacsPart from "../modalWindow/characsPart/CharacsPart";
@@ -8,7 +6,6 @@ import CharacsPart from "../modalWindow/characsPart/CharacsPart";
 import styles from "./selectedItemInfo.module.scss";
 
 const SelectedItemInfo = () => {
-    const dispatch = useDispatch();
     const selectedItem = useSelector(state => state.modalWin.selectedItem);
 
     const { thumbnail = '' } = selectedItem.item;
@@ -20,7 +17,6 @@ const SelectedItemInfo = () => {
                 <DetailsPart />
                 <CharacsPart />
             </div>
-            <button className={styles.closeModalWinBtn} onClick={() => dispatch(modalWinStatus(false))}>x</button>
         </div>
     )
 }

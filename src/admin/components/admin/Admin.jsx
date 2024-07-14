@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
 
 import useAuth from "../../../hooks/useAuth";
 import { removeAdminData } from "./adminSlice";
+import { auth } from "../../../firebaseInitial";
 
 import AdminMenuBar from "../adminMenuBar/AdminMenuBar";
 import AddItemPage from "../../pages/addItemPage/AddItemPage";
@@ -38,9 +40,10 @@ const Admin = () => {
             </div>
             <button
                 className={styles.logoutBtn}
-                onClick={() => {
+                onClick={async () => {
                     dispatch(removeAdminData());
-                    localStorage.removeItem("email");
+                    localStorage.removeItem("admin");
+                    await signOut(auth);
                     navigate("/login");
                 }}>
                 Log out
