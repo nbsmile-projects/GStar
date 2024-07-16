@@ -1,8 +1,15 @@
 
+import RemoveItemsList from "../../components/removeItemsList/RemoveItemsList";
+
+import styles from "./removeItemPage.module.scss";
+
 const RemoveItemPage = () => {
 
     return (
-        <h1>removeITEMS!</h1>
+        <div className={styles.removeItem}>
+            <h2 className={styles.title}>Удалить товар</h2>
+            <RemoveItemsList />
+        </div>
     )
 }
 
