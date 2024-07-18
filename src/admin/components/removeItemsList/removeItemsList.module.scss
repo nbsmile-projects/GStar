@@ -1,5 +1,4 @@
 .removeItemsList {
-    margin-top: 15px;
     overflow-y: auto;
     height: 510px;
 
@@ -33,12 +32,18 @@
         }
 
         .name {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 450;
         }
 
         .bucket {
-            width: 35px;
+            width: 33px;
+            cursor: pointer;
+
+            // &:hover {
+            //     color: red;
+            //     background-color:red;
+            // }
         }
     }
 }

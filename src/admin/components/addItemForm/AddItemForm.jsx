@@ -16,7 +16,7 @@ const AddItemForm = ({ onSubmit, setThumbnail }) => {
         if (addItemError) {
             const errorMessage = setTimeout(() => {
                 dispatch(setAddItemError(false));
-            }, 1800);
+            }, 4000);
 
             return () => clearTimeout(errorMessage);
         }
@@ -30,6 +30,16 @@ const AddItemForm = ({ onSubmit, setThumbnail }) => {
     const onSetThumbnail = (e) => {
         const thumbnail = e.target.files[0];
         setThumbnail(thumbnail);
+    }
+
+    const validateFileName = (value) => {
+        if (value && value[0]) {
+            const fileName = value[0].name;
+            const invalidNamePattern = /[ \n\r\t\/?%$#&=@"\\:+]/; // список запрещенных символов
+
+            return !invalidNamePattern.test(fileName) || "Пробелы, новые строки, возврат каретки, табуляция, а также символы: / ? % # $ & = @ : + \ .. и символы не поддерживаемые в UTF-8 запрещены в названии файла!";
+        }
+        return true;
     }
 
     return (
@@ -105,7 +115,8 @@ const AddItemForm = ({ onSubmit, setThumbnail }) => {
                     {
                     ...register("thumbnail", {
                         required: "Добавьте изображение товара",
-                        onChange: onSetThumbnail
+                        onChange: onSetThumbnail,
+                        validate: validateFileName
                     })}
                 />
             </div>

@@ -1,51 +1,60 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import useGStarService from "../../../services/GStarService";
+import { setListOfItems } from "./removeItemsSlice";
+
+import Spinner from "../../../components/spinner/Spinner";
 
 import styles from "./removeItemsList.module.scss";
-
 import bucket from "../../../assets/icons/bucket.svg";
 
-const RemoveItemsList = () => {
+const RemoveItemsList = ({ onSelectItemToRemove }) => {
+    const [content, setContent] = useState();
+
+    const { getAllItems, loading } = useGStarService();
+    const dispatch = useDispatch();
+    const listOfItems = useSelector(state => state.removeItems.listOfItems);
+    const category = useSelector(state => state.removeItems.category);
+
+    useEffect(() => {
+        onRequest(category);
+    }, [category]);
+
+    useEffect(() => {
+        const items = renderItems(listOfItems);
+        onItemsLoaded(items);
+    }, [loading]);
+
+    const onRequest = async (type) => {
+        await getAllItems(type)
+            .then(data => {
+                const arrOfItems = Object.values(data);
+                dispatch(setListOfItems(arrOfItems));
+            });
+    }
+
+    const onItemsLoaded = (items) => {
+        setContent(items);
+    }
+
+    const renderItems = data => {
+        return data.map(item => {
+            return (
+                <li className={styles.item} key={item.id}>
+                    <div className={styles.itemCard}>
+                        <img className={styles.thumbnail} src={item.thumbnail.url} alt="thumbnail" />
+                        <p className={styles.name}>{item.name}</p>
+                        <img className={styles.bucket} src={bucket} onClick={() => onSelectItemToRemove(category, item.name, item.thumbnail.fileName)} alt="bucket" />
+                    </div>
+                </li>
+            )
+        });
+    }
+
     return (
         <div className={styles.removeItemsList}>
-            <div className={styles.itemCard}>
-                <img className={styles.thumbnail} src="https://firebasestorage.googleapis.com/v0/b/gstar-cc079.appspot.com/o/bicycles%2FblackBicycle.jpg?alt=media&token=98b2bf43-6bbe-49f2-8da2-384b230aca26" alt="thumbnail" />
-                <p className={styles.name}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                <img className={styles.bucket} src={bucket} alt="bucket" />
-            </div>
-            <div className={styles.itemCard}>
-                <img className={styles.thumbnail} src="https://firebasestorage.googleapis.com/v0/b/gstar-cc079.appspot.com/o/bicycles%2FblackBicycle.jpg?alt=media&token=98b2bf43-6bbe-49f2-8da2-384b230aca26" alt="thumbnail" />
-                <p className={styles.name}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                <img className={styles.bucket} src={bucket} alt="bucket" />
-            </div>
-            <div className={styles.itemCard}>
-                <img className={styles.thumbnail} src="https://firebasestorage.googleapis.com/v0/b/gstar-cc079.appspot.com/o/bicycles%2FblackBicycle.jpg?alt=media&token=98b2bf43-6bbe-49f2-8da2-384b230aca26" alt="thumbnail" />
-                <p className={styles.name}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                <img className={styles.bucket} src={bucket} alt="bucket" />
-            </div>
-            <div className={styles.itemCard}>
-                <img className={styles.thumbnail} src="https://firebasestorage.googleapis.com/v0/b/gstar-cc079.appspot.com/o/bicycles%2FblackBicycle.jpg?alt=media&token=98b2bf43-6bbe-49f2-8da2-384b230aca26" alt="thumbnail" />
-                <p className={styles.name}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                <img className={styles.bucket} src={bucket} alt="bucket" />
-            </div>
-            <div className={styles.itemCard}>
-                <img className={styles.thumbnail} src="https://firebasestorage.googleapis.com/v0/b/gstar-cc079.appspot.com/o/bicycles%2FblackBicycle.jpg?alt=media&token=98b2bf43-6bbe-49f2-8da2-384b230aca26" alt="thumbnail" />
-                <p className={styles.name}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                <img className={styles.bucket} src={bucket} alt="bucket" />
-            </div>
-            <div className={styles.itemCard}>
-                <img className={styles.thumbnail} src="https://firebasestorage.googleapis.com/v0/b/gstar-cc079.appspot.com/o/bicycles%2FblackBicycle.jpg?alt=media&token=98b2bf43-6bbe-49f2-8da2-384b230aca26" alt="thumbnail" />
-                <p className={styles.name}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                <img className={styles.bucket} src={bucket} alt="bucket" />
-            </div>
-            <div className={styles.itemCard}>
-                <img className={styles.thumbnail} src="https://firebasestorage.googleapis.com/v0/b/gstar-cc079.appspot.com/o/bicycles%2FblackBicycle.jpg?alt=media&token=98b2bf43-6bbe-49f2-8da2-384b230aca26" alt="thumbnail" />
-                <p className={styles.name}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                <img className={styles.bucket} src={bucket} alt="bucket" />
-            </div>
-            <div className={styles.itemCard}>
-                <img className={styles.thumbnail} src="https://firebasestorage.googleapis.com/v0/b/gstar-cc079.appspot.com/o/bicycles%2FblackBicycle.jpg?alt=media&token=98b2bf43-6bbe-49f2-8da2-384b230aca26" alt="thumbnail" />
-                <p className={styles.name}>Велосипед Giant Talon 2 - 2022 (phantom green)</p>
-                <img className={styles.bucket} src={bucket} alt="bucket" />
-            </div>
+            {loading ? <Spinner /> : content}
         </div>
     );
 }

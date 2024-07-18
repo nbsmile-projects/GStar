@@ -58,7 +58,7 @@ const AddItemPage = () => {
         const { category } = newItemData;
         const thumbnailName = thumbnailFile.name;
         const url = await getThumbnailURL(thumbnailFile, category, thumbnailName);
-        dispatch(setNewItemThumbnail(url));
+        dispatch(setNewItemThumbnail({ fileName: thumbnailName, url }));
     };
 
     return (
