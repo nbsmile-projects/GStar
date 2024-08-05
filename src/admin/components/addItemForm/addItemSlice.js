@@ -22,9 +22,7 @@ const addItemSlice = createSlice({
     reducers: {
         setUploading: (state, action) => { state.uploading = action.payload },
         setAddItemError: (state, action) => { state.addItemError = action.payload },
-        setNewItemData: (state, action) => {
-            state.newItemData = action.payload
-        },
+        setNewItemData: (state, action) => { state.newItemData = action.payload },
         setNewItemThumbnail: (state, action) => { state.newItemData.thumbnail = action.payload }
     }
 });

@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { get, child, ref as databaseRef, remove as removeItem } from 'firebase/database';
+import { get, child, ref as databaseRef, remove as removeItem, update } from 'firebase/database';
 import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { storage, database } from "../firebaseInitial";
 
@@ -47,11 +47,11 @@ export const useHttp = () => {
         }
     }, []);
 
-    const remove = useCallback(async (category, itemName, thumbnailName) => {
+    const remove = useCallback(async (category, id, thumbnailName) => {
         setLoading(true);
 
         try {
-            await removeItem(databaseRef(database, `${category}/${itemName}`));
+            await removeItem(databaseRef(database, `${category}/${id}`));
             await deleteObject(storageRef(storage, `${category}/${thumbnailName}`));
 
             setLoading(false);
@@ -61,9 +61,22 @@ export const useHttp = () => {
             setError(e.message);
             throw e;
         }
-    }, [])
+    }, []);
 
-    return { loading, request, error, upload, remove }
+    const edit = useCallback(async (itemData, category, id) => {
+        setLoading(true);
+
+        try {
+            await update(databaseRef(database, `${category}/${id}`), itemData);
+
+            setLoading(false);
+            return;
+        } catch (e) {
+            setLoading(false);
+            setError(e.message);
+            throw e;
+        }
+    }, []);
+
+    return { loading, request, error, upload, remove, edit }
 }
-
-

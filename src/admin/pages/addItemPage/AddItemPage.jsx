@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 import { ref, set } from "firebase/database";
+import { database } from "../../../firebaseInitial";
 import useGStarService from "../../../services/GStarService";
 
 import AddItemForm from "../../components/addItemForm/AddItemForm";
 import ModalWindow from "../../../components/modalWindow/ModalWindow";
 
 import { setNewItemData, setNewItemThumbnail, setUploading } from "../../components/addItemForm/addItemSlice";
-import { database } from "../../../firebaseInitial";
 
 import ConfirmOperation from "../../components/confirmOperation/ConfirmOperation";
 import Spinner from "../../../components/spinner/Spinner";
@@ -26,9 +26,9 @@ const AddItemPage = () => {
 
     useEffect(() => {
         if (thumbnail !== null) {
-            const { category, name } = newItemData;
+            const { category, id } = newItemData;
             const setData = async () => {
-                await set(ref(database, `${category}/` + name), newItemData);
+                await set(ref(database, `${category}/` + id), newItemData);
             }
             setData();
             dispatch(setUploading(false));

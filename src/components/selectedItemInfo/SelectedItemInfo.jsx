@@ -12,7 +12,7 @@ const SelectedItemInfo = () => {
 
     return (
         <div className={styles.itemModalWindow} >
-            <img src={thumbnail} alt={"modalWinThumbnail"} />
+            <img src={thumbnail.url} alt={"modalWinThumbnail"} />
             <div className={styles.info}>
                 <DetailsPart />
                 <CharacsPart />

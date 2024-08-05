@@ -1,7 +1,7 @@
 import { useHttp } from "../hooks/http.hook";
 
 const useGStarService = () => {
-    const { request, upload, remove, loading, error } = useHttp();
+    const { request, upload, remove, loading, edit, error } = useHttp();
 
     const getAllItems = async (category) => {
         const res = await request(category);
@@ -18,12 +18,17 @@ const useGStarService = () => {
         return url;
     }
 
-    const removeItem = async (category, itemName, thumbnailName) => {
-        await remove(category, itemName, thumbnailName);
+    const removeItem = async (category, id, thumbnailName) => {
+        await remove(category, id, thumbnailName);
         return;
     }
 
-    return { getAllItems, getItem, getThumbnailURL, removeItem, loading, error };
+    const editItem = async (itemData, category, id) => {
+        await edit(itemData, category, id);
+        return;
+    }
+
+    return { getAllItems, getItem, getThumbnailURL, removeItem, editItem, loading, error };
 }
 
 export default useGStarService;

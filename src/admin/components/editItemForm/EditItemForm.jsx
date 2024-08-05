@@ -1,35 +1,58 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 
-import { setAddItemError } from "./addItemSlice";
+import { setEditItemError, setActiveSection } from "../editItemsList/editItemsSlice";
 
-import ErrorMessage from '../errorMessage/ErrorMessage';
-import styles from "./addItemForm.module.scss";
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import styles from "./editItemForm.module.scss";
 
-const AddItemForm = ({ onSubmit, setThumbnail }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+const EditItemForm = ({ onSubmit, setThumbnail }) => {
     const dispatch = useDispatch();
-    const addItemError = useSelector(state => state.addItem.addItemError);
+    const editItemError = useSelector(state => state.editItems.editItemError);
+    const modifiedItemData = useSelector(state => state.editItems.modifiedItemData);
+    const currentThumbnail = useSelector(state => state.editItems.currentThumbnail);
+
+    const [thumbnailPreview, setThumbnailPreview] = useState(currentThumbnail.url);
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            name: modifiedItemData.name,
+            brand: modifiedItemData.brand,
+            description: modifiedItemData.description,
+            price: modifiedItemData.price,
+            sold: modifiedItemData.sold
+        }
+    });
 
     useEffect(() => {
-        if (addItemError) {
+        if (editItemError) {
             const errorMessage = setTimeout(() => {
-                dispatch(setAddItemError(false));
+                dispatch(setEditItemError(false));
             }, 4000);
 
             return () => clearTimeout(errorMessage);
         }
         // eslint-disable-next-line
-    }, [addItemError])
+    }, [editItemError])
 
     const onError = () => {
-        dispatch(setAddItemError(true));
+        dispatch(setEditItemError(true));
     }
 
     const onSetThumbnail = (e) => {
         const thumbnail = e.target.files[0];
-        setThumbnail(thumbnail);
+        if (thumbnail) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setThumbnailPreview(e.target.result);
+            };
+            reader.readAsDataURL(thumbnail);
+            setThumbnail(thumbnail);
+            return;
+        }
+        setThumbnailPreview(currentThumbnail);
+        setThumbnail(null);
     }
 
     const validateFileName = (value) => {
@@ -44,7 +67,7 @@ const AddItemForm = ({ onSubmit, setThumbnail }) => {
 
     return (
         <form
-            className={styles.addItemForm}
+            className={styles.editItemForm}
             onSubmit={handleSubmit(onSubmit, onError)}>
             <div className={styles.field}>
                 <label htmlFor="name">Название</label>
@@ -72,7 +95,7 @@ const AddItemForm = ({ onSubmit, setThumbnail }) => {
                 <label htmlFor="description">Описание</label>
                 <textarea
                     id="description"
-                    rows="4"
+                    rows="5"
                     {...register("description", {
                         required: "Заполните поля"
                     })} />
@@ -87,17 +110,6 @@ const AddItemForm = ({ onSubmit, setThumbnail }) => {
                     })} />
             </div>
             <div className={styles.field}>
-                <label htmlFor="select">Категория</label>
-                <select
-                    className={styles.category}
-                    id="category"
-                    {...register("category")}>
-                    <option value="bicycles">Велосипеды</option>
-                    <option value="bicycleParts">Запчасти</option>
-                    <option value="bicycleAccs">Аксессуары</option>
-                </select>
-            </div>
-            <div className={styles.field}>
                 <label htmlFor="sold">Продано</label>
                 <input
                     type="number"
@@ -107,26 +119,31 @@ const AddItemForm = ({ onSubmit, setThumbnail }) => {
                     })} />
             </div>
             <div className={styles.field}>
-                <label htmlFor="thumbnail">Картинка товара <span>1080x1080px</span></label>
+                <label htmlFor="thumbnail">Картинка товара <span>width = height!</span></label>
+                <img className={styles.thumbnail} src={thumbnailPreview} alt="thumbnail" />
                 <input
                     type="file"
                     id="thumbnail"
                     accept="image/*"
                     {
                     ...register("thumbnail", {
-                        required: "Добавьте изображение товара",
                         onChange: onSetThumbnail,
                         validate: validateFileName
                     })}
                 />
             </div>
-            {addItemError ? <ErrorMessage errors={errors} /> : null}
+            {editItemError ? <ErrorMessage errors={errors} /> : null}
+            <button
+                type="button"
+                onClick={() => dispatch(setActiveSection("editItemsList"))}>
+                Отменить
+            </button>
             <button
                 type="submit">
-                Добавить
+                Сохранить
             </button>
         </form >
     );
 };
 
-export default AddItemForm;
+export default EditItemForm;

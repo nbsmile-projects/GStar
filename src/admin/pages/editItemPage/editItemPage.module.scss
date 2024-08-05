@@ -1,0 +1,22 @@
+.editItemPage {
+    padding: 40px 50px;
+
+    .title {
+        font-size: 32px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .categoryButton {
+        color: #1a1b1d;
+        font-size: 15px;
+        font-weight: 500;
+        padding: 5px 15px;
+        border: 1px solid #1a1b1d;
+        border-bottom: none;
+        background-color: transparent;
+        cursor: pointer;
+        margin-right: 5px;
+        margin-top: 8px;
+    }
+}
