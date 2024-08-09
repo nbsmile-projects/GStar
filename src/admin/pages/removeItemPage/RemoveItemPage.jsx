@@ -1,3 +1,4 @@
+import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux";
 
 import useGStarService from "../../../services/GStarService";
@@ -17,16 +18,18 @@ const RemoveItemPage = () => {
     const modalWinStatus = useSelector(state => state.removeItems.removingStatus);
     const selectedItem = useSelector(state => state.removeItems.selectedItem);
 
-    const onSelectItemToRemove = (category, itemName, thumbnailName) => {
-        dispatch(setSelectedItem({ name: itemName, category, thumbnailName }));
+    const RemoveItemsListRef = useRef(null);
+
+    const onSelectItemToRemove = (category, id, thumbnailName) => {
+        dispatch(setSelectedItem({ id, category, thumbnailName }));
         dispatch(setRemovingStatus(true));
     }
 
     const onRemove = async () => {
-        const { name, category, thumbnailName } = selectedItem;
-        await removeItem(category, name, thumbnailName);
+        const { id, category, thumbnailName } = selectedItem;
+        await removeItem(category, id, thumbnailName);
         dispatch(setRemovingStatus(false));
-        window.location.reload();
+        RemoveItemsListRef.current.onRequest(category);
     }
 
     return (
@@ -37,7 +40,7 @@ const RemoveItemPage = () => {
                 <button className={styles.categoryButton} onClick={() => dispatch(setCategory("bicycleAccs"))}>Велоаксессуары</button>
                 <button className={styles.categoryButton} onClick={() => dispatch(setCategory("bicycleParts"))}>Велозапчасти</button>
             </div>
-            <RemoveItemsList onSelectItemToRemove={onSelectItemToRemove} />
+            <RemoveItemsList onSelectItemToRemove={onSelectItemToRemove} ref={RemoveItemsListRef} />
             <ModalWindow modalWinStatus={modalWinStatus} setModalWinStatus={setRemovingStatus}>
                 <ConfirmOperation setConfirmStatus={setRemovingStatus} onConfirm={onRemove} />
             </ModalWindow>

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     listOfItems: [],
-    selectedItem: { name: "", category: "", thumbnailName: "" },
+    selectedItem: { id: "", category: "", thumbnailName: "" },
     category: "bicycles",
     removingStatus: false
 };

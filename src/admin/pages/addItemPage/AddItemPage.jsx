@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 import { ref, set } from "firebase/database";
@@ -8,7 +8,7 @@ import useGStarService from "../../../services/GStarService";
 import AddItemForm from "../../components/addItemForm/AddItemForm";
 import ModalWindow from "../../../components/modalWindow/ModalWindow";
 
-import { setNewItemData, setNewItemThumbnail, setUploading } from "../../components/addItemForm/addItemSlice";
+import { setNewItemData, setNewItemThumbnail, setUploadingStatus, reset } from "../../components/addItemForm/addItemSlice";
 
 import ConfirmOperation from "../../components/confirmOperation/ConfirmOperation";
 import Spinner from "../../../components/spinner/Spinner";
@@ -20,9 +20,11 @@ const AddItemPage = () => {
     const { getThumbnailURL, loading } = useGStarService();
 
     const dispatch = useDispatch();
-    const modalWinStatus = useSelector(state => state.addItem.uploading);
+    const modalWinStatus = useSelector(state => state.addItem.uploadingStatus);
     const newItemData = useSelector(state => state.addItem.newItemData);
     const thumbnail = useSelector(state => state.addItem.newItemData.thumbnail);
+
+    const AddItemFormRef = useRef(null);
 
     useEffect(() => {
         if (thumbnail !== null) {
@@ -31,8 +33,9 @@ const AddItemPage = () => {
                 await set(ref(database, `${category}/` + id), newItemData);
             }
             setData();
-            dispatch(setUploading(false));
-            window.location.reload();
+            dispatch(setUploadingStatus(false));
+            dispatch(reset());
+            AddItemFormRef.current.resetForm();
         }
         // eslint-disable-next-line
     }, [thumbnail]);
@@ -51,7 +54,7 @@ const AddItemPage = () => {
             uploadDate: currentDate
         }
         dispatch(setNewItemData(data));
-        dispatch(setUploading(true));
+        dispatch(setUploadingStatus(true));
     }
 
     const onUpload = async () => {
@@ -64,9 +67,9 @@ const AddItemPage = () => {
     return (
         <div className={styles.addItem}>
             <h2 className={styles.title}>Добавить товар</h2>
-            <AddItemForm onSubmit={onSubmit} setThumbnail={setThumbnailFile} />
-            <ModalWindow modalWinStatus={modalWinStatus} setModalWinStatus={setUploading}>
-                <ConfirmOperation setConfirmStatus={setUploading} onConfirm={onUpload} />
+            <AddItemForm onSubmit={onSubmit} setThumbnail={setThumbnailFile} ref={AddItemFormRef} />
+            <ModalWindow modalWinStatus={modalWinStatus} setModalWinStatus={setUploadingStatus}>
+                <ConfirmOperation setConfirmStatus={setUploadingStatus} onConfirm={onUpload} />
             </ModalWindow>
             {loading ? <Spinner /> : null}
         </div>

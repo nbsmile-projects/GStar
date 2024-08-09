@@ -10,6 +10,11 @@ $highlight-color: #1A1B1D;
         align-items: center;
         margin-bottom: 20px;
 
+        .thumbnail {
+            width: 85px;
+            margin-left: 40px;
+        }
+
         label {
             display: block;
             font-size: 18px;

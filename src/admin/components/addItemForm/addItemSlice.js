@@ -12,7 +12,7 @@ const initialState = {
         thumbnail: null,
         uploadDate: null
     },
-    uploading: false,
+    uploadingStatus: false,
     addItemError: false
 };
 
@@ -20,19 +20,21 @@ const addItemSlice = createSlice({
     name: "addItem",
     initialState,
     reducers: {
-        setUploading: (state, action) => { state.uploading = action.payload },
+        setUploadingStatus: (state, action) => { state.uploadingStatus = action.payload },
         setAddItemError: (state, action) => { state.addItemError = action.payload },
         setNewItemData: (state, action) => { state.newItemData = action.payload },
-        setNewItemThumbnail: (state, action) => { state.newItemData.thumbnail = action.payload }
+        setNewItemThumbnail: (state, action) => { state.newItemData.thumbnail = action.payload },
+        reset: () => initialState
     }
 });
 
 const { reducer, actions } = addItemSlice;
 
 export const {
-    setUploading,
+    setUploadingStatus,
     setAddItemError,
     setNewItemData,
-    setNewItemThumbnail
+    setNewItemThumbnail,
+    reset
 } = actions;
 export default reducer;
